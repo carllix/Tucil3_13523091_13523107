@@ -14,7 +14,7 @@ public class Main {
 		// var puzzle = easyPuzzle();
 		// var puzzle = mediumPuzzle();
 		// var puzzle = hardPuzzle();
-		Move puzzle = Input.loadFromFile("../test/test3.txt");
+		Move puzzle = Input.loadFromFile("./test/test3.txt");
 		//var puzzle = hardestPuzzle();
 		// puzzle.showParking();
 		
