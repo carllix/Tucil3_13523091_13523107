@@ -2,8 +2,10 @@ import java.io.IOException;
 import java.util.List;
 
 import algorithm.Algorithm;
+import algorithm.GBFS;
 import algorithm.SolutionPath;
 import algorithm.UCS;
+import heuristic.ManhattanDistance;
 import model.Board;
 import model.State;
 import model.Move;
@@ -34,7 +36,7 @@ public class Main {
 
             System.out.println("Move " + i + ": " + move.getPieceId() + "-" + move.getDirectionString());
             System.out.println(state.getBoard().toStringWithColor(move));
-        }        
+        }   
     }
 
     public static void main(String[] args) {
@@ -48,18 +50,19 @@ public class Main {
             System.out.println("Exit position: " + board.getExitPosition());
             System.out.println("Primary piece: " + board.getPrimaryPiece());
 
-            Algorithm ucs = new UCS();
-            SolutionPath solution = ucs.findSolution(board);
+            Algorithm gbfs = new GBFS();
+            gbfs.setHeuristic(new ManhattanDistance());
+            SolutionPath solution = gbfs.findSolution(board);
 
             if (solution.isSolutionFound()) {
                 System.out.println("\nSolution found!");
                 System.out.println();
-                printSolutionToTerminal(board, solution.getPath(), ucs.getName(),
+                printSolutionToTerminal(board, solution.getPath(), gbfs.getName(),
                         solution.getNodesVisited(), solution.getExecutionTimeMs());
 
                 // Simpan ke file
                 String outputPath = "test/output/solution.txt";
-                FileHandler.writeSolutionToFile(outputPath, board, solution.getPath(), ucs.getName(),
+                FileHandler.writeSolutionToFile(outputPath, board, solution.getPath(), gbfs.getName(),
                         solution.getNodesVisited(), solution.getExecutionTimeMs());
                 System.out.println("\nSolution successfully written to: " + outputPath);
             } else {
