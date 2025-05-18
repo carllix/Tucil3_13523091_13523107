@@ -5,17 +5,17 @@
 <?import javafx.geometry.*?>
 
 <BorderPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="gui.MainController"
-            prefHeight="600" prefWidth="800">
+    xmlns:fx="http://javafx.com/fxml"
+    fx:controller="gui.MainController"
+    prefHeight="600" prefWidth="800">
 
     <top>
         <VBox spacing="10">
             <padding>
-                <Insets top="10" right="10" bottom="10" left="10"/>
+                <Insets top="10" right="10" bottom="10" left="10" />
             </padding>
             <HBox spacing="10" alignment="CENTER_LEFT">
-                <Button fx:id="loadButton" text="Load Configuration" onAction="#handleLoadFile"/>
+                <Button fx:id="loadButton" text="Load Configuration" onAction="#handleLoadFile" />
                 <Label fx:id="filePathLabel" text="No file loaded" />
             </HBox>
 
@@ -23,27 +23,42 @@
                 <Label text="Algorithm:" />
                 <ComboBox fx:id="algorithmComboBox" prefWidth="150" />
 
-                <Label text="Heuristic:" fx:id="heuristicLabel" visible="false" managed="false"/>
-                <ComboBox fx:id="heuristicComboBox" prefWidth="150" visible="false" managed="false"/>
+                <Label text="Heuristic:" fx:id="heuristicLabel" visible="false" managed="false" />
+                <ComboBox fx:id="heuristicComboBox" prefWidth="150" visible="false" managed="false" />
 
-                <Button fx:id="solveButton" text="Solve" onAction="#handleSolve" disable="true"/>
+                <Button fx:id="solveButton" text="Solve" onAction="#handleSolve" disable="true" />
             </HBox>
         </VBox>
     </top>
 
     <center>
-        <StackPane fx:id="boardContainer">
-            <Pane fx:id="boardPane" style="-fx-background-color: #F0F0F0;" />
+        <StackPane fx:id="boardContainer" alignment="CENTER">
+            <padding>
+                <Insets top="10" right="10" bottom="10" left="10" />
+            </padding>
+            <Pane fx:id="boardPane"
+                style="
+                      -fx-background-color: #F0F0F0;
+                      -fx-border-color: #CCCCCC;
+                      -fx-border-width: 2;
+                      -fx-border-radius: 5;
+                      -fx-background-radius: 5;
+                      -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0.5, 0, 0);
+                  " />
         </StackPane>
-    </center>
+    </center>     
 
     <right>
         <VBox spacing="10" prefWidth="200" style="-fx-background-color: #E0E0E0;">
             <padding>
-                <Insets top="10" right="10" bottom="10" left="10"/>
+                <Insets top="10" right="10" bottom="10" left="10" />
             </padding>
+            
+            <Button fx:id="saveSolutionButton" text="💾 Save Solution"
+                onAction="#handleSaveSolution" disable="true"
+                alignment="TOP_RIGHT" />
 
-            <Label text="Solution Information" style="-fx-font-weight: bold;"/>
+            <Label text="Solution Information" style="-fx-font-weight: bold;" />
             <Separator />
 
             <GridPane hgap="10" vgap="5">
@@ -53,26 +68,32 @@
                 </columnConstraints>
 
                 <Label text="Status:" GridPane.rowIndex="0" GridPane.columnIndex="0" />
-                <Label fx:id="statusLabel" text="Waiting" GridPane.rowIndex="0" GridPane.columnIndex="1" />
+                <Label fx:id="statusLabel" text="Waiting" GridPane.rowIndex="0"
+                    GridPane.columnIndex="1" />
 
                 <Label text="Nodes Visited:" GridPane.rowIndex="1" GridPane.columnIndex="0" />
-                <Label fx:id="nodesVisitedLabel" text="0" GridPane.rowIndex="1" GridPane.columnIndex="1" />
+                <Label fx:id="nodesVisitedLabel" text="0" GridPane.rowIndex="1"
+                    GridPane.columnIndex="1" />
 
                 <Label text="Steps:" GridPane.rowIndex="2" GridPane.columnIndex="0" />
                 <Label fx:id="stepsLabel" text="0" GridPane.rowIndex="2" GridPane.columnIndex="1" />
 
                 <Label text="Execution Time:" GridPane.rowIndex="3" GridPane.columnIndex="0" />
-                <Label fx:id="executionTimeLabel" text="0 ms" GridPane.rowIndex="3" GridPane.columnIndex="1" />
+                <Label fx:id="executionTimeLabel" text="0 ms" GridPane.rowIndex="3"
+                    GridPane.columnIndex="1" />
             </GridPane>
 
             <Separator />
 
-            <Label text="Animation Controls" style="-fx-font-weight: bold;"/>
+            <Label text="Animation Controls" style="-fx-font-weight: bold;" />
             <HBox spacing="10" alignment="CENTER">
-                <Button fx:id="playButton" text="Play" onAction="#handlePlay" disable="true"/>
-                <Button fx:id="stepButton" text="Step" onAction="#handleStep" disable="true"/>
-                <Button fx:id="resetButton" text="Reset" onAction="#handleReset" disable="true"/>
+                <Button fx:id="playButton" text="Play" onAction="#handlePlay" disable="true" />
+                <Button fx:id="stepBackButton" text="←" onAction="#handleStepBack" disable="true" />
+                <Button fx:id="stepForwardButton" text="→" onAction="#handleStepForward"
+                    disable="true" />
+                <Button fx:id="resetButton" text="Reset" onAction="#handleReset" disable="true" />
             </HBox>
+            
 
             <Separator />
 
@@ -81,7 +102,7 @@
 
             <Separator />
 
-            <Label text="Move History" style="-fx-font-weight: bold;"/>
+            <Label text="Move History" style="-fx-font-weight: bold;" />
             <ListView fx:id="moveHistoryListView" VBox.vgrow="ALWAYS" />
         </VBox>
     </right>
@@ -89,7 +110,7 @@
     <bottom>
         <HBox spacing="10" alignment="CENTER_RIGHT">
             <padding>
-                <Insets top="10" right="10" bottom="10" left="10"/>
+                <Insets top="10" right="10" bottom="10" left="10" />
             </padding>
             <Label fx:id="currentMoveLabel" text="No move" HBox.hgrow="ALWAYS" />
             <ProgressBar fx:id="solutionProgress" prefWidth="200" progress="0.0" />

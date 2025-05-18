@@ -5,12 +5,20 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.File;
@@ -51,8 +59,6 @@ public class MainController {
     @FXML
     private Button playButton;
     @FXML
-    private Button stepButton;
-    @FXML
     private Button resetButton;
     @FXML
     private Slider speedSlider;
@@ -62,13 +68,20 @@ public class MainController {
     private Label currentMoveLabel;
     @FXML
     private ProgressBar solutionProgress;
+    @FXML
+    private Button stepBackButton;
+    @FXML
+    private Button stepForwardButton;
+    @FXML
+    private Button saveSolutionButton;
 
     private Board initialBoard;
     private SolutionPath solution;
     private List<State> statePath;
     private int currentStateIndex = 0;
     private Map<Character, Rectangle> pieceRectangles = new HashMap<>();
-    private Timeline animation;
+    private SequentialTransition animation;
+
     private final Color primaryPieceColor = Color.RED;
     private final Color[] pieceColors = {
             Color.BLUE, Color.ORANGE, Color.PURPLE, Color.BROWN, Color.CYAN,
@@ -77,8 +90,9 @@ public class MainController {
             Color.GOLD, Color.GRAY, Color.LIGHTPINK, Color.SIENNA, Color.OLIVE,
             Color.NAVY, Color.PLUM, Color.TEAL, Color.CHOCOLATE
     };
-    private final int CELL_SIZE = 60;
-    private final int BOARD_MARGIN = 20;
+
+    private int CELL_SIZE = 40;
+    private final int BOARD_MARGIN = 60;
 
     @FXML
     public void initialize() {
@@ -99,8 +113,7 @@ public class MainController {
 
         speedSlider.valueProperty().addListener((obs, oldVal, newVal) -> {
             if (animation != null) {
-                double rate = newVal.doubleValue() / 5.0;
-                animation.setRate(rate);
+                animation.setRate(newVal.doubleValue() / 5.0);
             }
         });
     }
@@ -128,24 +141,20 @@ public class MainController {
     }
 
     private void resetUI() {
-        // Reset UI components
         statusLabel.setText("Waiting");
         nodesVisitedLabel.setText("0");
         stepsLabel.setText("0");
         executionTimeLabel.setText("0 ms");
         playButton.setDisable(true);
-        stepButton.setDisable(true);
+        stepBackButton.setDisable(true);
+        stepForwardButton.setDisable(true);
         resetButton.setDisable(true);
         solutionProgress.setProgress(0);
         moveHistoryListView.getItems().clear();
         currentMoveLabel.setText("No move");
-
-        // Clear current solution
         solution = null;
         statePath = null;
         currentStateIndex = 0;
-
-        // Clear the board visualization
         pieceRectangles.clear();
         boardPane.getChildren().clear();
     }
@@ -157,37 +166,65 @@ public class MainController {
         int rows = initialBoard.getRows();
         int cols = initialBoard.getCols();
 
-        // Set the board pane size
-        boardPane.setPrefSize(cols * CELL_SIZE + 2 * BOARD_MARGIN, rows * CELL_SIZE + 2 * BOARD_MARGIN);
+        double availableWidth = boardContainer.getWidth() - 2 * BOARD_MARGIN;
+        double availableHeight = boardContainer.getHeight() - 2 * BOARD_MARGIN;
 
-        // Draw grid lines
+        // Jika belum ditampilkan, panggil setelah scene ditampilkan
+        if (availableWidth <= 0 || availableHeight <= 0) {
+            Platform.runLater(this::drawInitialBoard);
+            return;
+        }
+
+        // CELL_SIZE = (int) Math.min(availableWidth / cols, availableHeight / rows);
+
+        double boardWidth = cols * CELL_SIZE + 2 * BOARD_MARGIN;
+        double boardHeight = rows * CELL_SIZE + 2 * BOARD_MARGIN;
+
+        boardPane.setPrefSize(boardWidth, boardHeight);
+
         for (int i = 0; i <= rows; i++) {
-            javafx.scene.shape.Line horizontalLine = new javafx.scene.shape.Line(
-                    BOARD_MARGIN, BOARD_MARGIN + i * CELL_SIZE,
+            Line hLine = new Line(BOARD_MARGIN, BOARD_MARGIN + i * CELL_SIZE,
                     BOARD_MARGIN + cols * CELL_SIZE, BOARD_MARGIN + i * CELL_SIZE);
-            horizontalLine.setStroke(Color.GRAY);
-            boardPane.getChildren().add(horizontalLine);
+            hLine.setStroke(Color.GRAY);
+            boardPane.getChildren().add(hLine);
         }
 
         for (int i = 0; i <= cols; i++) {
-            javafx.scene.shape.Line verticalLine = new javafx.scene.shape.Line(
-                    BOARD_MARGIN + i * CELL_SIZE, BOARD_MARGIN,
+            Line vLine = new Line(BOARD_MARGIN + i * CELL_SIZE, BOARD_MARGIN,
                     BOARD_MARGIN + i * CELL_SIZE, BOARD_MARGIN + rows * CELL_SIZE);
-            verticalLine.setStroke(Color.GRAY);
-            boardPane.getChildren().add(verticalLine);
+            vLine.setStroke(Color.GRAY);
+            boardPane.getChildren().add(vLine);
         }
 
-        // Draw exit position
+        // Gambar exit
         Position exitPos = initialBoard.getExitPosition();
-        Rectangle exitRect = new Rectangle(
-                BOARD_MARGIN + exitPos.getCol() * CELL_SIZE,
-                BOARD_MARGIN + exitPos.getRow() * CELL_SIZE,
-                CELL_SIZE, CELL_SIZE);
+        double exitX = BOARD_MARGIN + exitPos.getCol() * CELL_SIZE;
+        double exitY = BOARD_MARGIN + exitPos.getRow() * CELL_SIZE;
+
+        if (exitPos.getCol() < 0)
+            exitX = BOARD_MARGIN - CELL_SIZE;
+        if (exitPos.getCol() >= cols)
+            exitX = BOARD_MARGIN + cols * CELL_SIZE;
+        if (exitPos.getRow() < 0)
+            exitY = BOARD_MARGIN - CELL_SIZE;
+        if (exitPos.getRow() >= rows)
+            exitY = BOARD_MARGIN + rows * CELL_SIZE;
+
+        Rectangle exitRect = new Rectangle(exitX, exitY, CELL_SIZE, CELL_SIZE);
         exitRect.setFill(Color.LIGHTGREEN);
         exitRect.setOpacity(0.5);
+        exitRect.setStroke(Color.GREEN);
+        exitRect.setStrokeWidth(1.5);
         boardPane.getChildren().add(exitRect);
 
-        // Draw pieces
+        Label exitLabel = new Label("Exit");
+        exitLabel.setTextFill(Color.DARKGREEN);
+        exitLabel.setStyle("-fx-font-weight: normal;");
+        exitLabel.setLayoutX(exitX + CELL_SIZE / 4.0);
+        exitLabel.setLayoutY(exitY + CELL_SIZE / 4.0);
+
+        boardPane.getChildren().add(exitLabel);
+
         Map<Character, Piece> pieces = initialBoard.getPieces();
         int colorIndex = 0;
 
@@ -197,15 +234,19 @@ public class MainController {
 
             Rectangle rect = createPieceRectangle(piece, pieceColors[colorIndex % pieceColors.length], pieceId);
 
-            // Set color - primary piece is always red
             Color pieceColor = piece.isPrimary() ? primaryPieceColor : pieceColors[colorIndex % pieceColors.length];
             if (!piece.isPrimary())
                 colorIndex++;
-            rect.setFill(pieceColor);
 
+            rect.setFill(pieceColor);
             pieceRectangles.put(pieceId, rect);
             boardPane.getChildren().add(rect);
         }
+
+        Rectangle clip = new Rectangle();
+        clip.widthProperty().bind(boardPane.widthProperty());
+        clip.heightProperty().bind(boardPane.heightProperty());
+        boardPane.setClip(clip);
     }
 
     private Rectangle createPieceRectangle(Piece piece, Color color, char id) {
@@ -222,7 +263,7 @@ public class MainController {
         rect.setArcWidth(10);
         rect.setArcHeight(10);
         rect.setStroke(Color.BLACK);
-        rect.setStrokeWidth(2);
+        rect.setStrokeWidth(0.5);
         rect.setFill(color);
         rect.setId("piece-" + id);
         return rect;
@@ -250,17 +291,15 @@ public class MainController {
                 solveButton.setDisable(false);
 
                 if (solution != null && solution.isSolutionFound()) {
-                    statusLabel.setText("Solved!");
-                    nodesVisitedLabel.setText(String.valueOf(solution.getNodesVisited()));
-                    stepsLabel.setText(String.valueOf(solution.getStepCount()));
-                    executionTimeLabel.setText(solution.getExecutionTimeMs() + " ms");
-
                     statePath = solution.getPath();
                     populateMoveHistory();
 
                     playButton.setDisable(false);
-                    stepButton.setDisable(false);
+                    saveSolutionButton.setDisable(false);
+                    stepBackButton.setDisable(false);
+                    stepForwardButton.setDisable(false);
                     resetButton.setDisable(false);
+                    handlePlay();
                 } else {
                     statusLabel.setText("No Solution Found");
                 }
@@ -337,8 +376,9 @@ public class MainController {
         if (statePath == null || currentStateIndex >= statePath.size() - 1)
             return;
 
-        animation = new Timeline();
+        animation = new SequentialTransition();
         double speedFactor = speedSlider.getValue() / 5.0;
+        Duration stepDuration = Duration.seconds(0.5 / speedFactor); // 0.5 detik tiap langkah
 
         for (int i = currentStateIndex + 1; i < statePath.size(); i++) {
             final int index = i;
@@ -358,33 +398,42 @@ public class MainController {
                     double newX = BOARD_MARGIN + newPos.getCol() * CELL_SIZE;
                     double newY = BOARD_MARGIN + newPos.getRow() * CELL_SIZE;
 
-                    KeyFrame keyFrame = new KeyFrame(
-                            Duration.seconds(i - currentStateIndex),
-                            event -> {
-                                currentStateIndex = index;
-                                solutionProgress.setProgress((double) index / (statePath.size() - 1));
+                    KeyValue kvX = new KeyValue(pieceRect.xProperty(), newX);
+                    KeyValue kvY = new KeyValue(pieceRect.yProperty(), newY);
+                    KeyFrame kf = new KeyFrame(stepDuration, kvX, kvY);
 
-                                String moveText = "Move " + (index) + ": Piece " + pieceId + " " +
-                                        lastMove.getDirectionString() + " " + lastMove.getDistance() + " step(s)";
-                                currentMoveLabel.setText(moveText);
+                    Timeline timeline = new Timeline(kf);
+                    timeline.setOnFinished(e -> {
+                        currentStateIndex = index;
+                        solutionProgress.setProgress((double) index / (statePath.size() - 1));
+                        String moveText = "Move " + index + ": Piece " + pieceId + " " +
+                                lastMove.getDirectionString() + " " + lastMove.getDistance() + " step(s)";
+                        currentMoveLabel.setText(moveText);
+                        moveHistoryListView.getSelectionModel().select(index);
+                        moveHistoryListView.scrollTo(index);
+                    });
 
-                                moveHistoryListView.getSelectionModel().select(index);
-                                moveHistoryListView.scrollTo(index);
+                    animation.getChildren().add(timeline);
 
-                                // Check if solution is complete
-                                if (index == statePath.size() - 1) {
-                                    playButton.setText("Play");
-                                }
-                            },
-                            new KeyValue(pieceRect.xProperty(), newX),
-                            new KeyValue(pieceRect.yProperty(), newY));
-
-                    animation.getKeyFrames().add(keyFrame);
+                    // Tambahkan jeda antar langkah (opsional tapi kelihatan halus)
+                    animation.getChildren().add(new PauseTransition(Duration.millis(100)));
                 }
             }
         }
 
-        animation.setRate(speedFactor);
+        animation.setOnFinished(e -> {
+            playButton.setText("Play");
+
+            Platform.runLater(() -> {
+                statusLabel.setText("Solved!");
+                nodesVisitedLabel.setText(String.valueOf(solution.getNodesVisited()));
+                stepsLabel.setText(String.valueOf(solution.getStepCount()));
+                executionTimeLabel.setText(solution.getExecutionTimeMs() + " ms");
+
+                showSuccessDialog(solution.getStepCount(), solution.getExecutionTimeMs());
+            });
+        });
+
         animation.play();
     }
 
@@ -462,4 +511,133 @@ public class MainController {
         alert.setContentText(message);
         alert.showAndWait();
     }
+
+    private void showSuccessDialog(int steps, long timeMs) {
+        Stage dialogStage = new Stage();
+        dialogStage.initModality(Modality.APPLICATION_MODAL);
+        dialogStage.setTitle("Success");
+
+        Label icon = new Label("✅");
+        icon.setStyle("-fx-font-size: 36px;");
+
+        Label title = new Label("Puzzle Solved!");
+        title.setStyle("-fx-font-size: 18px; -fx-font-weight: bold;");
+
+        Label body = new Label("Solved in " + steps + " steps.\nExecution Time: " + timeMs + " ms.");
+        body.setStyle("-fx-font-size: 14px; -fx-text-alignment: center;");
+
+        Button okButton = new Button("OK");
+        okButton.setDefaultButton(true);
+        okButton.setOnAction(e -> dialogStage.close());
+
+        VBox content = new VBox(15, icon, title, body, okButton);
+        content.setAlignment(Pos.CENTER);
+        content.setPadding(new Insets(20));
+
+        Scene scene = new Scene(content);
+        dialogStage.setScene(scene);
+        dialogStage.setResizable(false);
+        dialogStage.showAndWait();
+    }
+
+    @FXML
+    private void handleStepForward() {
+        if (solution == null || !solution.isSolutionFound())
+            return;
+
+        if (animation != null) {
+            animation.stop();
+            playButton.setText("Play");
+        }
+
+        if (currentStateIndex < statePath.size() - 1) {
+            currentStateIndex++;
+            updateBoardDisplay(statePath.get(currentStateIndex).getBoard());
+
+            solutionProgress.setProgress((double) currentStateIndex / (statePath.size() - 1));
+
+            Move lastMove = getLastMove(currentStateIndex);
+            currentMoveLabel.setText("Move " + currentStateIndex + ": Piece " +
+                    lastMove.getPieceId() + " " + lastMove.getDirectionString() + " " + lastMove.getDistance()
+                    + " step(s)");
+
+            moveHistoryListView.getSelectionModel().select(currentStateIndex);
+            moveHistoryListView.scrollTo(currentStateIndex);
+        }
+    }
+
+    @FXML
+    private void handleStepBack() {
+        if (solution == null || !solution.isSolutionFound())
+            return;
+
+        if (animation != null) {
+            animation.stop();
+            playButton.setText("Play");
+        }
+
+        if (currentStateIndex > 0) {
+            currentStateIndex--;
+            updateBoardDisplay(statePath.get(currentStateIndex).getBoard());
+
+            solutionProgress.setProgress((double) currentStateIndex / (statePath.size() - 1));
+
+            if (currentStateIndex > 0) {
+                Move lastMove = getLastMove(currentStateIndex);
+                currentMoveLabel.setText("Move " + currentStateIndex + ": Piece " +
+                        lastMove.getPieceId() + " " + lastMove.getDirectionString() + " " + lastMove.getDistance()
+                        + " step(s)");
+            } else {
+                currentMoveLabel.setText("Initial state");
+            }
+
+            moveHistoryListView.getSelectionModel().select(currentStateIndex);
+            moveHistoryListView.scrollTo(currentStateIndex);
+        }
+    }
+
+    private Move getLastMove(int index) {
+        List<Move> moves = statePath.get(index).getMoveHistory();
+        return moves.isEmpty() ? null : moves.get(moves.size() - 1);
+    }
+    
+    @FXML
+    private void handleSaveSolution() {
+        if (solution == null || !solution.isSolutionFound())
+            return;
+
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save Solution As");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Text Files", "*.txt"));
+        fileChooser.setInitialFileName("solution.txt");
+
+        File file = fileChooser.showSaveDialog(boardPane.getScene().getWindow());
+
+        if (file != null) {
+            try {
+                // Misal kamu pakai UCS, sesuaikan dengan algorithm yang aktif
+                String algoName = algorithmComboBox.getValue();
+                FileHandler.writeSolutionToFile(
+                        file.getAbsolutePath(),
+                        initialBoard,
+                        solution.getPath(),
+                        algoName,
+                        solution.getNodesVisited(),
+                        solution.getExecutionTimeMs());
+                showInfo("Saved", "Solution saved to:\n" + file.getAbsolutePath());
+            } catch (Exception e) {
+                showAlert("Save Failed", "Could not save file: " + e.getMessage());
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void showInfo(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+    
 }
