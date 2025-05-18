@@ -83,6 +83,10 @@ public class Board {
         return pieces;
     }
 
+    public int getPieceCount() {
+        return pieces.size();
+    }
+
     public void addPiece(char id, Piece piece) {
         pieces.put(id, piece);
     }
@@ -341,13 +345,30 @@ public class Board {
         return sb.toString();
     }
 
-    public String toStringWithColor(Move lastMove) {
+    public String toStringWithColor(Move lastMove, Board beforeMoveBoard) {
         StringBuilder sb = new StringBuilder();
 
         boolean hasLeftExit = (exitPosition != null && exitPosition.getCol() == -1);
         boolean hasRightExit = (exitPosition != null && exitPosition.getCol() == cols);
         boolean hasTopExit = (exitPosition != null && exitPosition.getRow() == -1);
         boolean hasBottomExit = (exitPosition != null && exitPosition.getRow() == rows);
+
+        List<Position> movePath = new ArrayList<>();
+        if (lastMove != null) {
+            Piece before = beforeMoveBoard.getPieces().get(lastMove.getPieceId());
+            for (Position pos : before.getAllPositions()) {
+                for (int d = 1; d <= lastMove.getDistance(); d++) {
+                    int row = pos.getRow();
+                    int col = pos.getCol();
+                    switch (lastMove.getDirection()) {
+                        case Move.LEFT -> movePath.add(new Position(row, col - d));
+                        case Move.RIGHT -> movePath.add(new Position(row, col + d));
+                        case Move.UP -> movePath.add(new Position(row - d, col));
+                        case Move.DOWN -> movePath.add(new Position(row + d, col));
+                    }
+                }
+            }
+        }
 
         if (hasTopExit) {
             if (hasLeftExit)
@@ -375,9 +396,26 @@ public class Board {
 
             for (int j = 0; j < cols; j++) {
                 char c = boardArray[i][j];
-                if (lastMove != null && c == lastMove.getPieceId()) {
-                    sb.append(Constants.BLUE).append(c).append(Constants.RESET);
-                } else if (c == Constants.PRIMARY_PIECE_CHAR) {
+                Position current = new Position(i, j);
+                boolean isMoved = movePath.contains(current);
+                boolean isPrimary = (c == Constants.PRIMARY_PIECE_CHAR);
+                boolean isMovingPiece = (lastMove != null && c == lastMove.getPieceId());
+
+                if (isMoved) {
+                    if (isPrimary) {
+                        sb.append(Constants.YELLOW).append(Constants.RED).append(c).append(Constants.RESET);
+                    } else if (isMovingPiece) {
+                        sb.append(Constants.YELLOW).append(Constants.BLUE).append(c).append(Constants.RESET);
+                    } else {
+                        sb.append(Constants.YELLOW).append(c).append(Constants.RESET);
+                    }
+                } else if (isMovingPiece) {
+                    if (isPrimary) {
+                        sb.append(Constants.RED).append(c).append(Constants.RESET);
+                    } else {
+                        sb.append(Constants.BLUE).append(c).append(Constants.RESET);
+                    }
+                } else if (isPrimary) {
                     sb.append(Constants.RED).append(c).append(Constants.RESET);
                 } else {
                     sb.append(c);
@@ -411,6 +449,5 @@ public class Board {
         }
 
         return sb.toString();
-    }
-    
+    }    
 }
