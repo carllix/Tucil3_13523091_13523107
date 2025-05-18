@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import util.Constants;
+
 public class Board {
     private int rows;
     private int cols;
@@ -129,13 +131,13 @@ public class Board {
 
         // Tambahkan posisi baru ke board
         for (Position pos : piece.getAllPositions()) {
-        int row = pos.getRow();
-        int col = pos.getCol();
-        
-        if (row >= 0 && row < boardArray.length && col >= 0 && col < boardArray[0].length) {
-            boardArray[row][col] = id;
+            int row = pos.getRow();
+            int col = pos.getCol();
+
+            if (row >= 0 && row < boardArray.length && col >= 0 && col < boardArray[0].length) {
+                boardArray[row][col] = id;
+            }
         }
-    }
 
         return true;
     }
@@ -175,14 +177,14 @@ public class Board {
         if (exitPosition == null || primaryPieceId == 0 || !pieces.containsKey(primaryPieceId)) {
             return false;
         }
-        
+
         Piece primary = getPrimaryPiece();
         if (primary == null) {
             return false;
         }
-        
+
         Position anchor = primary.getAnchor();
-        
+
         // atas
         if (exitPosition.getRow() == -1) {
             return !primary.isHorizontal() && anchor.getRow() < 0;
@@ -199,19 +201,216 @@ public class Board {
         else if (exitPosition.getCol() == cols) {
             return primary.isHorizontal() && anchor.getCol() + primary.getSize() > cols;
         }
-        
+
         return false;
     }
-    
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
+
+        boolean hasLeftExit = (exitPosition != null && exitPosition.getCol() == -1);
+        boolean hasRightExit = (exitPosition != null && exitPosition.getCol() == cols);
+        boolean hasTopExit = (exitPosition != null && exitPosition.getRow() == -1);
+        boolean hasBottomExit = (exitPosition != null && exitPosition.getRow() == rows);
+
+        if (hasTopExit) {
+            if (hasLeftExit)
+                sb.append(" ");
+            for (int j = 0; j < cols; j++) {
+                if (exitPosition.getCol() == j) {
+                    sb.append('K');
+                } else {
+                    sb.append(' ');
+                }
+            }
+            if (hasRightExit)
+                sb.append(" ");
+            sb.append("\n");
+        }
+
         for (int i = 0; i < rows; i++) {
+            if (hasLeftExit) {
+                if (exitPosition != null && exitPosition.getRow() == i && exitPosition.getCol() == -1) {
+                    sb.append('K');
+                } else {
+                    sb.append(' ');
+                }
+            }
+
             for (int j = 0; j < cols; j++) {
                 sb.append(boardArray[i][j]);
             }
-            sb.append('\n');
+
+            if (hasRightExit) {
+                if (exitPosition != null && exitPosition.getRow() == i && exitPosition.getCol() == cols) {
+                    sb.append('K');
+                } else {
+                    sb.append(' ');
+                }
+            }
+
+            sb.append("\n");
         }
+
+        if (hasBottomExit) {
+            if (hasLeftExit)
+                sb.append(" ");
+            for (int j = 0; j < cols; j++) {
+                if (exitPosition.getCol() == j) {
+                    sb.append('K');
+                } else {
+                    sb.append(' ');
+                }
+            }
+            if (hasRightExit)
+                sb.append(" ");
+            sb.append("\n");
+        }
+
         return sb.toString();
     }
+
+    public String toStringWithColor() {
+        StringBuilder sb = new StringBuilder();
+
+        boolean hasLeftExit = (exitPosition != null && exitPosition.getCol() == -1);
+        boolean hasRightExit = (exitPosition != null && exitPosition.getCol() == cols);
+        boolean hasTopExit = (exitPosition != null && exitPosition.getRow() == -1);
+        boolean hasBottomExit = (exitPosition != null && exitPosition.getRow() == rows);
+
+        if (hasTopExit) {
+            if (hasLeftExit)
+                sb.append(" ");
+            for (int j = 0; j < cols; j++) {
+                if (exitPosition.getCol() == j) {
+                    sb.append(Constants.ANSI_GREEN).append('K').append(Constants.ANSI_RESET);
+                } else {
+                    sb.append(" ");
+                }
+            }
+            if (hasRightExit)
+                sb.append(" ");
+            sb.append("\n");
+        }
+
+        for (int i = 0; i < rows; i++) {
+            if (hasLeftExit) {
+                if (exitPosition != null && exitPosition.getRow() == i && exitPosition.getCol() == -1) {
+                    sb.append(Constants.ANSI_GREEN).append('K').append(Constants.ANSI_RESET);
+                } else {
+                    sb.append(" ");
+                }
+            }
+
+            for (int j = 0; j < cols; j++) {
+                char c = boardArray[i][j];
+                if (c == Constants.PRIMARY_PIECE_CHAR) {
+                    sb.append(Constants.ANSI_RED).append(c).append(Constants.ANSI_RESET);
+                } else {
+                    sb.append(c);
+                }
+            }
+
+            if (hasRightExit) {
+                if (exitPosition != null && exitPosition.getRow() == i && exitPosition.getCol() == cols) {
+                    sb.append(Constants.ANSI_GREEN).append('K').append(Constants.ANSI_RESET);
+                } else {
+                    sb.append(" ");
+                }
+            }
+
+            sb.append("\n");
+        }
+
+        if (hasBottomExit) {
+            if (hasLeftExit)
+                sb.append(" ");
+            for (int j = 0; j < cols; j++) {
+                if (exitPosition.getCol() == j) {
+                    sb.append(Constants.ANSI_GREEN).append('K').append(Constants.ANSI_RESET);
+                } else {
+                    sb.append(" ");
+                }
+            }
+            if (hasRightExit)
+                sb.append(" ");
+            sb.append("\n");
+        }
+
+        return sb.toString();
+    }
+
+    public String toStringWithColor(Move lastMove) {
+        StringBuilder sb = new StringBuilder();
+
+        boolean hasLeftExit = (exitPosition != null && exitPosition.getCol() == -1);
+        boolean hasRightExit = (exitPosition != null && exitPosition.getCol() == cols);
+        boolean hasTopExit = (exitPosition != null && exitPosition.getRow() == -1);
+        boolean hasBottomExit = (exitPosition != null && exitPosition.getRow() == rows);
+
+        if (hasTopExit) {
+            if (hasLeftExit)
+                sb.append(" ");
+            for (int j = 0; j < cols; j++) {
+                if (exitPosition.getCol() == j) {
+                    sb.append(Constants.ANSI_GREEN).append('K').append(Constants.ANSI_RESET);
+                } else {
+                    sb.append(" ");
+                }
+            }
+            if (hasRightExit)
+                sb.append(" ");
+            sb.append("\n");
+        }
+
+        for (int i = 0; i < rows; i++) {
+            if (hasLeftExit) {
+                if (exitPosition.getRow() == i) {
+                    sb.append(Constants.ANSI_GREEN).append('K').append(Constants.ANSI_RESET);
+                } else {
+                    sb.append(" ");
+                }
+            }
+
+            for (int j = 0; j < cols; j++) {
+                char c = boardArray[i][j];
+                if (lastMove != null && c == lastMove.getPieceId()) {
+                    sb.append(Constants.ANSI_BLUE).append(c).append(Constants.ANSI_RESET); // highlight moved
+                } else if (c == Constants.PRIMARY_PIECE_CHAR) {
+                    sb.append(Constants.ANSI_RED).append(c).append(Constants.ANSI_RESET);
+                } else {
+                    sb.append(c);
+                }
+            }
+
+            if (hasRightExit) {
+                if (exitPosition.getRow() == i) {
+                    sb.append(Constants.ANSI_GREEN).append('K').append(Constants.ANSI_RESET);
+                } else {
+                    sb.append(" ");
+                }
+            }
+
+            sb.append("\n");
+        }
+
+        if (hasBottomExit) {
+            if (hasLeftExit)
+                sb.append(" ");
+            for (int j = 0; j < cols; j++) {
+                if (exitPosition.getCol() == j) {
+                    sb.append(Constants.ANSI_GREEN).append('K').append(Constants.ANSI_RESET);
+                } else {
+                    sb.append(" ");
+                }
+            }
+            if (hasRightExit)
+                sb.append(" ");
+            sb.append("\n");
+        }
+
+        return sb.toString();
+    }
+    
 }
