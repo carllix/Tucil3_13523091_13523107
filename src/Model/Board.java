@@ -129,8 +129,13 @@ public class Board {
 
         // Tambahkan posisi baru ke board
         for (Position pos : piece.getAllPositions()) {
-            boardArray[pos.getRow()][pos.getCol()] = id;
+        int row = pos.getRow();
+        int col = pos.getCol();
+        
+        if (row >= 0 && row < boardArray.length && col >= 0 && col < boardArray[0].length) {
+            boardArray[row][col] = id;
         }
+    }
 
         return true;
     }
@@ -167,20 +172,36 @@ public class Board {
     }
 
     public boolean isSolved() {
-        Piece primary = getPrimaryPiece();
-        if (primary == null)
+        if (exitPosition == null || primaryPieceId == 0 || !pieces.containsKey(primaryPieceId)) {
             return false;
-
-        for (Position pos : primary.getAllPositions()) {
-            if (pos.getRow() >= 0 && pos.getRow() < rows &&
-                    pos.getCol() >= 0 && pos.getCol() < cols) {
-                return false; 
-            }
         }
         
-        return true; // Semua bagian P sudah keluar board
-    }    
-    
+        Piece primary = getPrimaryPiece();
+        if (primary == null) {
+            return false;
+        }
+        
+        Position anchor = primary.getAnchor();
+        
+        // atas
+        if (exitPosition.getRow() == -1) {
+            return !primary.isHorizontal() && anchor.getRow() < 0;
+        }
+        // bawah
+        else if (exitPosition.getRow() == rows) {
+            return !primary.isHorizontal() && anchor.getRow() + primary.getSize() > rows;
+        }
+        // kiri
+        else if (exitPosition.getCol() == -1) {
+            return primary.isHorizontal() && anchor.getCol() < 0;
+        }
+        // Kalau kanan
+        else if (exitPosition.getCol() == cols) {
+            return primary.isHorizontal() && anchor.getCol() + primary.getSize() > cols;
+        }
+        
+        return false;
+    }
     
     @Override
     public String toString() {
