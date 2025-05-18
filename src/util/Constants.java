@@ -56,6 +56,7 @@ public class Constants {
     public static final String UCS = "UCS";
     public static final String GBFS = "Greedy Best First Search";
     public static final String ASTAR = "A*";
+    public static final String BEAM = "Beam Search";
 
     // Heuristic Labels
     public static final String BLOCKING_HEURISTIC = "Blocking";
@@ -77,7 +78,6 @@ public class Constants {
         return switch (id) {
             case 1 -> BLOCKING_HEURISTIC;
             case 2 -> MANHATTAN_HEURISTIC;
-            case 3 -> "Heuristic 3";
             default -> "Unknown";
         };
     }
