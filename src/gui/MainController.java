@@ -99,7 +99,8 @@ public class MainController {
                 "Uniform Cost Search", "Greedy Best-First Search", "A* Search", "Beam Search"));
         algorithmComboBox.setValue("Uniform Cost Search");
         algorithmComboBox.valueProperty().addListener((obs, oldVal, newVal) -> {
-            boolean showHeuristic = newVal.contains("Greedy") || newVal.contains("A*");
+            boolean showHeuristic = newVal.contains("Greedy Best-First Search") || newVal.contains("A* Search")
+                    || newVal.contains("Beam Search");
             heuristicLabel.setVisible(showHeuristic);
             heuristicLabel.setManaged(showHeuristic);
             heuristicComboBox.setVisible(showHeuristic);
@@ -342,16 +343,12 @@ public class MainController {
         ObservableList<String> moveItems = FXCollections.observableArrayList();
         moveItems.add("0. Initial State");
 
-        List<Move> allMoves = new java.util.ArrayList<>();
         for (int i = 1; i < statePath.size(); i++) {
             List<Move> moves = statePath.get(i).getMoveHistory();
             if (!moves.isEmpty()) {
                 Move lastMove = moves.get(moves.size() - 1);
-                if (!allMoves.contains(lastMove)) {
-                    allMoves.add(lastMove);
-                    moveItems.add(i + ". Move piece " + lastMove.getPieceId() + " " +
-                            lastMove.getDirectionString() + " " + lastMove.getDistance() + " step(s)");
-                }
+                moveItems.add(i + ". Move piece " + lastMove.getPieceId() + " " +
+                        lastMove.getDirectionString() + " " + lastMove.getDistance() + " step(s)");
             }
         }
 

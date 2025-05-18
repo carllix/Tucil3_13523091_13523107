@@ -6,7 +6,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.geometry.Pos?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="gui.LoadingController" prefWidth="800" prefHeight="600">
+<AnchorPane style="-fx-background-color: #1e1e1e;" xmlns:fx="http://javafx.com/fxml"
+    fx:controller="gui.LoadingController" prefWidth="800" prefHeight="600">
     <VBox alignment="CENTER" spacing="20" layoutX="0" layoutY="0" prefWidth="800" prefHeight="600">
         <ImageView fx:id="carImage" fitHeight="200" fitWidth="200" />
         <ProgressBar fx:id="progressBar" prefWidth="300" />
