@@ -1,125 +1,50 @@
-Algorithm: Beam Search
-Step count: 14
-Nodes visited: 67
-Execution time: 24 ms
+Algorithm: A*
+Step count: 4
+Nodes visited: 3527
+Execution time: 128 ms
 
 Initial Board
-AAB..F 
-..BCDF 
-GPPCDFK
-G..III 
-GHH... 
-LL.MM. 
+AAB..F
+..BCDF
+GPBCDF
+GP.III
+GHH...
+LL.MM.
+ K    
 
-Move 1: C-atas
-AABC.F 
-..BCDF 
-GPP.DFK
-G..III 
-GHH... 
-LL.MM. 
+Move 1: M-kanan
+AAB..F
+..BCDF
+GPBCDF
+GP.III
+GHH...
+LL..MM
+ K    
 
-Move 2: P-kanan
-AABC.F 
-..BCDF 
-G.PPDFK
-G..III 
-GHH... 
-LL.MM. 
+Move 2: L-kanan
+AAB..F
+..BCDF
+GPBCDF
+GP.III
+GHH...
+..LLMM
+ K    
 
-Move 3: D-atas
-AABCDF 
-..BCDF 
-G.PP.FK
-G..III 
-GHH... 
-LL.MM. 
+Move 3: H-kanan
+AAB..F
+..BCDF
+GPBCDF
+GP.III
+G.HH..
+..LLMM
+ K    
 
-Move 4: P-kanan
-AABCDF 
-..BCDF 
-G..PPFK
-G..III 
-GHH... 
-LL.MM. 
-
-Move 5: B-bawah
-AA.CDF 
-..BCDF 
-G.BPPFK
-G..III 
-GHH... 
-LL.MM. 
-
-Move 6: A-kanan
-.AACDF 
-..BCDF 
-G.BPPFK
-G..III 
-GHH... 
-LL.MM. 
-
-Move 7: M-kiri
-.AACDF 
-..BCDF 
-G.BPPFK
-G..III 
-GHH... 
-LLMM.. 
-
-Move 8: G-atas
-GAACDF 
-G.BCDF 
-G.BPPFK
-...III 
-.HH... 
-LLMM.. 
-
-Move 9: H-kiri
-GAACDF 
-G.BCDF 
-G.BPPFK
-...III 
-HH.... 
-LLMM.. 
-
-Move 10: I-kiri
-GAACDF 
-G.BCDF 
-G.BPPFK
-..III. 
-HH.... 
-LLMM.. 
-
-Move 11: F-bawah
-GAACD. 
-G.BCD. 
-G.BPP.K
-..IIIF 
-HH...F 
-LLMM.F 
-
-Move 12: P-kanan
-GAACD. 
-G.BCD. 
-G.B.PPK
-..IIIF 
-HH...F 
-LLMM.F 
-
-Move 13: P-kanan
-GAACD. 
-G.BCD. 
-G.B..PK
-..IIIF 
-HH...F 
-LLMM.F 
-
-Move 14: P-kanan
-GAACD. 
-G.BCD. 
-G.B...K
-..IIIF 
-HH...F 
-LLMM.F 
+Move 4: P-bawah
+AAB..F
+..BCDF
+G.BCDF
+G..III
+G.HH..
+..LLMM
+ K    
 
