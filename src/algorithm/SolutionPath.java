@@ -2,7 +2,7 @@ package algorithm;
 
 import java.util.List;
 
-import models.State;
+import model.State;
 
 import java.util.ArrayList;
 

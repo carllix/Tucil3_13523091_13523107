@@ -7,10 +7,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 
-import models.Board;
-import models.Move;
-import models.Position;
-import models.State;
+import model.Board;
+import model.Move;
+import model.Position;
+import model.State;
 
 import java.util.ArrayList;
 

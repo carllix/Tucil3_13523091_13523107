@@ -5,9 +5,9 @@ import algorithm.Algorithm;
 import algorithm.SolutionPath;
 import algorithm.UCS;
 import cli.CLI;
-import models.Board;
-import models.Move;
-import models.State;
+import model.Board;
+import model.Move;
+import model.State;
 import util.FileHandler;
 
 public class Main {

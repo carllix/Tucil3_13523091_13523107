@@ -5,9 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import models.Board;
-import models.Piece;
-import models.Position;
+import model.Board;
+import model.Piece;
+import model.Position;
 
 public class BoardParser {
     public static Board parseBoard(int rows, int cols, char[][] boardArray, Position exitPosition) {

@@ -1,5 +1,5 @@
 package algorithm;
-import models.Board;
+import model.Board;
 
 public interface Algorithm {
     SolutionPath findSolution(Board initialBoard);

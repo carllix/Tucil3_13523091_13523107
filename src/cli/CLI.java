@@ -4,9 +4,9 @@ package cli;
 import util.Constants;
 import util.FileHandler;
 import algorithm.*;
-import models.Board;
-import models.Move;
-import models.State;
+import model.Board;
+import model.Move;
+import model.State;
 
 import java.io.File;
 import java.io.BufferedReader;
