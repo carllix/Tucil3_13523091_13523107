@@ -1,6 +1,6 @@
 package heuristic;
 
-import model.Board;
+import models.Board;
 
 public interface Heuristic {
     int calculate(Board board);

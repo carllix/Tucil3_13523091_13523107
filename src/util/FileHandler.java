@@ -6,12 +6,13 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
-import java.util.ArrayList;
 
-import model.Board;
-import model.Move;
-import model.State;
-import model.Position;
+import models.Board;
+import models.Move;
+import models.Position;
+import models.State;
+
+import java.util.ArrayList;
 
 public class FileHandler {
     public static Board readInputFile(String filePath) throws IOException {

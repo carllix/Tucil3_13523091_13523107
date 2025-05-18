@@ -2,8 +2,8 @@
 package algorithm;
 
 import heuristic.Heuristic;
-import model.Board;
-import model.State;
+import models.Board;
+import models.State;
 import util.Constants;
 
 public class GreedyBestFirstSearch implements Algorithm {

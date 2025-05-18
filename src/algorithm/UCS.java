@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Set;
 
-import model.Board;
-import model.State;
+import models.Board;
+import models.State;
 import util.Constants;
 
 public class UCS implements Algorithm {

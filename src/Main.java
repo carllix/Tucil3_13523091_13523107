@@ -4,10 +4,10 @@ import java.util.List;
 import algorithm.Algorithm;
 import algorithm.SolutionPath;
 import algorithm.UCS;
-import model.Board;
-import model.State;
-import model.Move;
 import cli.CLI;
+import models.Board;
+import models.Move;
+import models.State;
 import util.FileHandler;
 
 public class Main {
