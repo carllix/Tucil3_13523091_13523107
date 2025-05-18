@@ -1,10 +1,11 @@
 package algorithm;
 
 import java.util.List;
-import java.util.ArrayList;
 
 import model.Move;
 import model.State;
+
+import java.util.ArrayList;
 
 public class SolutionPath {
     private List<State> path; // Urutan state dari awal sampai solusi

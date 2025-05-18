@@ -50,7 +50,7 @@ public class BoardParser {
             boolean isHorizontal = positions.stream().allMatch(p -> p.getRow() == anchor.getRow());
             int size = positions.size();
 
-            boolean isPrimary = id == 'P';
+            boolean isPrimary = id == Constants.PRIMARY_PIECE_CHAR;
             Piece piece = new Piece(id, anchor, size, isPrimary, isHorizontal);
             board.addPiece(id, piece);
 

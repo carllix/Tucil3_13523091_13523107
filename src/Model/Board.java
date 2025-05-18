@@ -83,6 +83,10 @@ public class Board {
         return pieces;
     }
 
+    public int getPieceCount() {
+        return pieces.size();
+    }
+
     public void addPiece(char id, Piece piece) {
         pieces.put(id, piece);
     }
@@ -219,7 +223,7 @@ public class Board {
                 sb.append(" ");
             for (int j = 0; j < cols; j++) {
                 if (exitPosition.getCol() == j) {
-                    sb.append('K');
+                    sb.append(Constants.EXIT_CHAR);
                 } else {
                     sb.append(' ');
                 }
@@ -232,7 +236,7 @@ public class Board {
         for (int i = 0; i < rows; i++) {
             if (hasLeftExit) {
                 if (exitPosition != null && exitPosition.getRow() == i && exitPosition.getCol() == -1) {
-                    sb.append('K');
+                    sb.append(Constants.EXIT_CHAR);
                 } else {
                     sb.append(' ');
                 }
@@ -244,7 +248,7 @@ public class Board {
 
             if (hasRightExit) {
                 if (exitPosition != null && exitPosition.getRow() == i && exitPosition.getCol() == cols) {
-                    sb.append('K');
+                    sb.append(Constants.EXIT_CHAR);
                 } else {
                     sb.append(' ');
                 }
@@ -258,7 +262,7 @@ public class Board {
                 sb.append(" ");
             for (int j = 0; j < cols; j++) {
                 if (exitPosition.getCol() == j) {
-                    sb.append('K');
+                    sb.append(Constants.EXIT_CHAR);
                 } else {
                     sb.append(' ');
                 }
@@ -284,7 +288,7 @@ public class Board {
                 sb.append(" ");
             for (int j = 0; j < cols; j++) {
                 if (exitPosition.getCol() == j) {
-                    sb.append(Constants.ANSI_GREEN).append('K').append(Constants.ANSI_RESET);
+                    sb.append(Constants.GREEN).append(Constants.EXIT_CHAR).append(Constants.RESET);
                 } else {
                     sb.append(" ");
                 }
@@ -297,7 +301,7 @@ public class Board {
         for (int i = 0; i < rows; i++) {
             if (hasLeftExit) {
                 if (exitPosition != null && exitPosition.getRow() == i && exitPosition.getCol() == -1) {
-                    sb.append(Constants.ANSI_GREEN).append('K').append(Constants.ANSI_RESET);
+                    sb.append(Constants.GREEN).append(Constants.EXIT_CHAR).append(Constants.RESET);
                 } else {
                     sb.append(" ");
                 }
@@ -306,7 +310,7 @@ public class Board {
             for (int j = 0; j < cols; j++) {
                 char c = boardArray[i][j];
                 if (c == Constants.PRIMARY_PIECE_CHAR) {
-                    sb.append(Constants.ANSI_RED).append(c).append(Constants.ANSI_RESET);
+                    sb.append(Constants.RED).append(c).append(Constants.RESET);
                 } else {
                     sb.append(c);
                 }
@@ -314,7 +318,7 @@ public class Board {
 
             if (hasRightExit) {
                 if (exitPosition != null && exitPosition.getRow() == i && exitPosition.getCol() == cols) {
-                    sb.append(Constants.ANSI_GREEN).append('K').append(Constants.ANSI_RESET);
+                    sb.append(Constants.GREEN).append(Constants.EXIT_CHAR).append(Constants.RESET);
                 } else {
                     sb.append(" ");
                 }
@@ -328,7 +332,7 @@ public class Board {
                 sb.append(" ");
             for (int j = 0; j < cols; j++) {
                 if (exitPosition.getCol() == j) {
-                    sb.append(Constants.ANSI_GREEN).append('K').append(Constants.ANSI_RESET);
+                    sb.append(Constants.GREEN).append(Constants.EXIT_CHAR).append(Constants.RESET);
                 } else {
                     sb.append(" ");
                 }
@@ -341,7 +345,7 @@ public class Board {
         return sb.toString();
     }
 
-    public String toStringWithColor(Move lastMove) {
+    public String toStringWithColor(Move lastMove, Board beforeMoveBoard) {
         StringBuilder sb = new StringBuilder();
 
         boolean hasLeftExit = (exitPosition != null && exitPosition.getCol() == -1);
@@ -349,12 +353,29 @@ public class Board {
         boolean hasTopExit = (exitPosition != null && exitPosition.getRow() == -1);
         boolean hasBottomExit = (exitPosition != null && exitPosition.getRow() == rows);
 
+        List<Position> movePath = new ArrayList<>();
+        if (lastMove != null) {
+            Piece before = beforeMoveBoard.getPieces().get(lastMove.getPieceId());
+            for (Position pos : before.getAllPositions()) {
+                for (int d = 1; d <= lastMove.getDistance(); d++) {
+                    int row = pos.getRow();
+                    int col = pos.getCol();
+                    switch (lastMove.getDirection()) {
+                        case Move.LEFT -> movePath.add(new Position(row, col - d));
+                        case Move.RIGHT -> movePath.add(new Position(row, col + d));
+                        case Move.UP -> movePath.add(new Position(row - d, col));
+                        case Move.DOWN -> movePath.add(new Position(row + d, col));
+                    }
+                }
+            }
+        }
+
         if (hasTopExit) {
             if (hasLeftExit)
                 sb.append(" ");
             for (int j = 0; j < cols; j++) {
                 if (exitPosition.getCol() == j) {
-                    sb.append(Constants.ANSI_GREEN).append('K').append(Constants.ANSI_RESET);
+                    sb.append(Constants.GREEN).append(Constants.EXIT_CHAR).append(Constants.RESET);
                 } else {
                     sb.append(" ");
                 }
@@ -367,7 +388,7 @@ public class Board {
         for (int i = 0; i < rows; i++) {
             if (hasLeftExit) {
                 if (exitPosition.getRow() == i) {
-                    sb.append(Constants.ANSI_GREEN).append('K').append(Constants.ANSI_RESET);
+                    sb.append(Constants.GREEN).append(Constants.EXIT_CHAR).append(Constants.RESET);
                 } else {
                     sb.append(" ");
                 }
@@ -375,10 +396,27 @@ public class Board {
 
             for (int j = 0; j < cols; j++) {
                 char c = boardArray[i][j];
-                if (lastMove != null && c == lastMove.getPieceId()) {
-                    sb.append(Constants.ANSI_BLUE).append(c).append(Constants.ANSI_RESET); // highlight moved
-                } else if (c == Constants.PRIMARY_PIECE_CHAR) {
-                    sb.append(Constants.ANSI_RED).append(c).append(Constants.ANSI_RESET);
+                Position current = new Position(i, j);
+                boolean isMoved = movePath.contains(current);
+                boolean isPrimary = (c == Constants.PRIMARY_PIECE_CHAR);
+                boolean isMovingPiece = (lastMove != null && c == lastMove.getPieceId());
+
+                if (isMoved) {
+                    if (isPrimary) {
+                        sb.append(Constants.YELLOW).append(Constants.RED).append(c).append(Constants.RESET);
+                    } else if (isMovingPiece) {
+                        sb.append(Constants.YELLOW).append(Constants.BLUE).append(c).append(Constants.RESET);
+                    } else {
+                        sb.append(Constants.YELLOW).append(c).append(Constants.RESET);
+                    }
+                } else if (isMovingPiece) {
+                    if (isPrimary) {
+                        sb.append(Constants.RED).append(c).append(Constants.RESET);
+                    } else {
+                        sb.append(Constants.BLUE).append(c).append(Constants.RESET);
+                    }
+                } else if (isPrimary) {
+                    sb.append(Constants.RED).append(c).append(Constants.RESET);
                 } else {
                     sb.append(c);
                 }
@@ -386,7 +424,7 @@ public class Board {
 
             if (hasRightExit) {
                 if (exitPosition.getRow() == i) {
-                    sb.append(Constants.ANSI_GREEN).append('K').append(Constants.ANSI_RESET);
+                    sb.append(Constants.GREEN).append(Constants.EXIT_CHAR).append(Constants.RESET);
                 } else {
                     sb.append(" ");
                 }
@@ -400,7 +438,7 @@ public class Board {
                 sb.append(" ");
             for (int j = 0; j < cols; j++) {
                 if (exitPosition.getCol() == j) {
-                    sb.append(Constants.ANSI_GREEN).append('K').append(Constants.ANSI_RESET);
+                    sb.append(Constants.GREEN).append(Constants.EXIT_CHAR).append(Constants.RESET);
                 } else {
                     sb.append(" ");
                 }
@@ -411,6 +449,5 @@ public class Board {
         }
 
         return sb.toString();
-    }
-    
+    }    
 }

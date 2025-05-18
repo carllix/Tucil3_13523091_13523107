@@ -1,7 +1,7 @@
 Algorithm: UCS
 Step count: 4
 Nodes visited: 9473
-Execution time: 274 ms
+Execution time: 282 ms
 
 Initial Board
  K    
