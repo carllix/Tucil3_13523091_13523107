@@ -1,50 +1,50 @@
-Algorithm: UCS
+Algorithm: A*
 Step count: 4
-Nodes visited: 9473
-Execution time: 274 ms
+Nodes visited: 3527
+Execution time: 128 ms
 
 Initial Board
- K    
 AAB..F
 ..BCDF
 GPBCDF
 GP.III
 GHH...
 LL.MM.
-
-Move 1: B-bawah
  K    
-AA...F
+
+Move 1: M-kanan
+AAB..F
 ..BCDF
 GPBCDF
-GPBIII
+GP.III
 GHH...
-LL.MM.
-
-Move 2: A-kanan
+LL..MM
  K    
-..AA.F
+
+Move 2: L-kanan
+AAB..F
 ..BCDF
 GPBCDF
-GPBIII
+GP.III
 GHH...
-LL.MM.
-
-Move 3: P-atas
+..LLMM
  K    
-.PAA.F
-.PBCDF
-G.BCDF
-G.BIII
-GHH...
-LL.MM.
 
-Move 4: P-atas
+Move 3: H-kanan
+AAB..F
+..BCDF
+GPBCDF
+GP.III
+G.HH..
+..LLMM
  K    
-.PAA.F
+
+Move 4: P-bawah
+AAB..F
 ..BCDF
 G.BCDF
-G.BIII
-GHH...
-LL.MM.
+G..III
+G.HH..
+..LLMM
+ K    
 
