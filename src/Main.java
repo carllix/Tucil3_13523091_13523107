@@ -39,7 +39,7 @@ public class Main {
 
     public static void main(String[] args) {
         try {
-            String filepath = "test/input/test3.txt";
+            String filepath = "test/input/test4.txt";
             Board board = FileHandler.readInputFile(filepath);
 
             System.out.println("Board successfully read:");

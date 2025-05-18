@@ -49,7 +49,7 @@ public class FileHandler {
 
             if (maxHeight > 0) {
                 for (int j = 0; j < maxWidth; j++) {
-                    if (rawBoard[0][j] == 'K') {
+                    if (rawBoard[0][j] == Constants.EXIT_CHAR) {
                         exitPosition = new Position(-1, j);
                         hasTopK = true;
                         break;
@@ -59,7 +59,7 @@ public class FileHandler {
 
             if (!hasTopK && maxHeight > 0) {
                 for (int j = 0; j < maxWidth; j++) {
-                    if (rawBoard[maxHeight - 1][j] == 'K') {
+                    if (rawBoard[maxHeight - 1][j] == Constants.EXIT_CHAR) {
                         exitPosition = new Position(expectedRows, j);
                         hasBottomK = true;
                         break;
@@ -69,7 +69,7 @@ public class FileHandler {
 
             if (!hasTopK && !hasBottomK) {
                 for (int i = 0; i < maxHeight; i++) {
-                    if (maxWidth > 0 && rawBoard[i][0] == 'K') {
+                    if (maxWidth > 0 && rawBoard[i][0] == Constants.EXIT_CHAR) {
                         exitPosition = new Position(i, -1);
                         hasLeftK = true;
                         break;
@@ -79,7 +79,7 @@ public class FileHandler {
 
             if (!hasTopK && !hasBottomK && !hasLeftK && maxWidth > 0) {
                 for (int i = 0; i < maxHeight; i++) {
-                    if (rawBoard[i][maxWidth - 1] == 'K') {
+                    if (rawBoard[i][maxWidth - 1] == Constants.EXIT_CHAR) {
                         exitPosition = new Position(i, expectedCols);
                         hasRightK = true;
                         break;
@@ -109,7 +109,7 @@ public class FileHandler {
                     int sourceRow = i + startRow;
                     int sourceCol = j + startCol;
                     char cell = (sourceRow < maxHeight && sourceCol < maxWidth) ? rawBoard[sourceRow][sourceCol] : ' ';
-                    boardArray[i][j] = (cell == 'K') ? ' ' : cell;
+                    boardArray[i][j] = (cell == Constants.EXIT_CHAR) ? ' ' : cell;
                 }
             }
 
