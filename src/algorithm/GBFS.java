@@ -22,7 +22,7 @@ public class GBFS implements Algorithm {
 
         State initialState = new State(initialBoard);
         initialState.setHeuristicValue(heuristic.calculate(initialBoard));
-  
+
         PriorityQueue<State> frontier = new PriorityQueue<>(Comparator.comparing(State::getHeuristicValue));
 
         Set<String> visited = new HashSet<>();
@@ -61,6 +61,7 @@ public class GBFS implements Algorithm {
         long endTime = System.currentTimeMillis();
         return new SolutionPath(nodesVisited, endTime - startTime);
     }
+
     public void setHeuristic(Heuristic heuristic) {
         this.heuristic = heuristic;
     }

@@ -7,7 +7,7 @@ public class Move {
     public static final int RIGHT = 1;
     public static final int DOWN = 2;
     public static final int LEFT = 3;
-    
+
     private char pieceId;
     private int direction;
     private int distance;
@@ -25,7 +25,7 @@ public class Move {
     public int getDirection() {
         return direction;
     }
-    
+
     public int getDistance() {
         return distance;
     }
@@ -52,13 +52,15 @@ public class Move {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
-        
+        if (this == obj)
+            return true;
+        if (obj == null || getClass() != obj.getClass())
+            return false;
+
         Move move = (Move) obj;
-        return pieceId == move.pieceId && 
-               direction == move.direction &&
-               distance == move.distance;
+        return pieceId == move.pieceId &&
+                direction == move.direction &&
+                distance == move.distance;
     }
 
     @Override

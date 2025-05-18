@@ -8,10 +8,10 @@ import algorithm.GBFS;
 import algorithm.SolutionPath;
 import algorithm.UCS;
 import heuristic.*;
-import cli.CLI;
 import model.Board;
 import model.Move;
 import model.State;
+import cli.CLI;
 import util.FileHandler;
 
 public class Main {

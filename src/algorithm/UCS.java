@@ -17,44 +17,43 @@ public class UCS implements Algorithm {
         long startTime = System.currentTimeMillis();
         int nodesVisited = 0;
 
-
         State initialState = new State(initialBoard);
         PriorityQueue<State> frontier = new PriorityQueue<>(Comparator.comparing(State::getCost));
-        
+
         // Use a set for visited states based on board configuration
         Set<String> visited = new HashSet<>();
-        
+
         frontier.add(initialState);
 
         while (!frontier.isEmpty()) {
             State currentState = frontier.poll();
             nodesVisited++;
-            
+
             if (currentState.getBoard().isSolved()) {
                 long endTime = System.currentTimeMillis();
                 List<State> path = currentState.getSolutionPath();
                 return new SolutionPath(path, nodesVisited, endTime - startTime);
             }
-            
+
             String boardStr = currentState.getBoard().toString();
-            
+
             if (visited.contains(boardStr)) {
                 continue;
             }
-            
+
             visited.add(boardStr);
-            
+
             List<State> childStates = currentState.generateChildStates();
-            
+
             for (State childState : childStates) {
                 String childBoardStr = childState.getBoard().toString();
-                
+
                 if (!visited.contains(childBoardStr)) {
                     frontier.add(childState);
                 }
             }
         }
-        
+
         // No solution found
         long endTime = System.currentTimeMillis();
         return new SolutionPath(nodesVisited, endTime - startTime);

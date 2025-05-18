@@ -68,7 +68,7 @@ public class State implements Comparable<State> {
                         newBoard,
                         this,
                         move,
-                        this.cost + 1, 
+                        this.cost + 1,
                         heuristicValue);
 
                 childStates.add(childState);
@@ -86,24 +86,24 @@ public class State implements Comparable<State> {
         List<State> path = new ArrayList<>();
         State current = this;
         List<State> tempPath = new ArrayList<>();
-        
+
         // Tambahin semua dulu untuk dicek
         while (current != null) {
             tempPath.add(current);
             current = current.getParent();
         }
-        
+
         if (!tempPath.isEmpty()) {
-            State lastAddedState = tempPath.get(tempPath.size() - 1); 
+            State lastAddedState = tempPath.get(tempPath.size() - 1);
             path.add(lastAddedState);
-            
+
             char lastPieceId = 0;
             int lastDirection = -1;
-            
+
             for (int i = tempPath.size() - 2; i >= 0; i--) {
                 State state = tempPath.get(i);
                 Move move = state.getLastMove();
-                
+
                 if (move != null) {
                     // Kalau beda tambahin ke path
                     if (move.getPieceId() != lastPieceId || move.getDirection() != lastDirection) {
@@ -118,7 +118,7 @@ public class State implements Comparable<State> {
                 }
             }
         }
-        
+
         return path;
     }
 

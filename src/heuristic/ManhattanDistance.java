@@ -1,14 +1,13 @@
 package heuristic;
 
-import model.Board;
-import model.Piece;
-import model.Position;
+import model.*;
 import util.Constants;
 
 public class ManhattanDistance implements Heuristic {
     @Override
     public int calculate(Board board) {
-        if (board.getExitPosition() == null || board.getPrimaryPieceId() == 0 || !board.getPieces().containsKey(board.getPrimaryPieceId())) {
+        if (board.getExitPosition() == null || board.getPrimaryPieceId() == 0
+                || !board.getPieces().containsKey(board.getPrimaryPieceId())) {
             return Integer.MAX_VALUE; // cek kondisi, heuristic gabisa dihitung
         }
 
@@ -25,15 +24,15 @@ public class ManhattanDistance implements Heuristic {
         int rows = board.getRows();
         int cols = board.getCols();
 
-        if (exitRow == -1) { //atas
+        if (exitRow == -1) { // atas
             return Math.abs(anchorCol - exitCol) + (anchorRow + 1);
-        } else if (exitRow == rows) { //bawah
+        } else if (exitRow == rows) { // bawah
             return Math.abs(anchorCol - exitCol) + (rows - anchorRow);
-        } else if (exitCol == -1) { //kiri
+        } else if (exitCol == -1) { // kiri
             return Math.abs(anchorRow - exitRow) + (anchorCol + 1);
-        } else if (exitCol == cols) { //kanan
+        } else if (exitCol == cols) { // kanan
             return Math.abs(anchorRow - exitRow) + (cols - anchorCol);
-        } else { //jaga-jaga aja
+        } else { // jaga-jaga aja
             return Math.abs(anchorRow - exitRow) + Math.abs(anchorCol - exitCol);
         }
     }

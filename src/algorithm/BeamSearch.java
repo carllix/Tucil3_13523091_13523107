@@ -10,7 +10,7 @@ import util.Constants;
 public class BeamSearch implements Algorithm {
 
     private Heuristic heuristic;
-    private final int beamWidth = 5; 
+    private final int beamWidth = 5;
     private final int maxIterations = 10000;
 
     @Override
@@ -37,7 +37,7 @@ public class BeamSearch implements Algorithm {
                 current.add(frontier.poll());
                 count++;
             }
-            
+
             List<State> nextCandidates = new ArrayList<>();
 
             for (State currentState : current) {
@@ -59,9 +59,9 @@ public class BeamSearch implements Algorithm {
                     }
                 }
             }
-            
+
             nextCandidates.sort(Comparator.comparing(State::getHeuristicValue));
-            
+
             frontier.clear();
             for (int i = 0; i < Math.min(beamWidth * 2, nextCandidates.size()); i++) {
                 frontier.add(nextCandidates.get(i));

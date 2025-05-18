@@ -9,8 +9,8 @@ import java.util.ArrayList;
 
 public class SolutionPath {
     private List<State> path; // Urutan state dari awal sampai solusi
-    private int nodesVisited; 
-    private long executionTimeMs; 
+    private int nodesVisited;
+    private long executionTimeMs;
     private boolean solutionFound;
 
     public SolutionPath(List<State> path, int nodesVisited, long executionTimeMs) {
@@ -48,8 +48,10 @@ public class SolutionPath {
     public boolean isSolutionFound() {
         return solutionFound;
     }
+
     public int getGroupedStepCount() {
-        if (path.size() <= 1) return 0;
+        if (path.size() <= 1)
+            return 0;
 
         int count = 1; // Setidaknya satu grup
         Move prevMove = path.get(1).getLastMove();
@@ -64,9 +66,11 @@ public class SolutionPath {
 
         return count; // Tidak perlu tambah count++ lagi karena sudah dimulai dari 1
     }
+
     public List<String> getGroupedMoveDescriptions() {
         List<String> result = new ArrayList<>();
-        if (path.size() <= 1) return result;
+        if (path.size() <= 1)
+            return result;
 
         Move prevMove = path.get(1).getLastMove();
         int repeat = 1;
@@ -85,6 +89,7 @@ public class SolutionPath {
         result.add(formatMove(prevMove, repeat)); // Tambahkan langkah terakhir
         return result;
     }
+
     private String formatMove(Move move, int count) {
         return move.toString() + (count > 1 ? " x" + count : "");
     }

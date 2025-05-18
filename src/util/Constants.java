@@ -59,8 +59,8 @@ public class Constants {
     public static final String BEAM = "Beam Search";
 
     // Heuristic Labels
-    public static final String BLOCKING_HEURISTIC = "Blocking";
-    public static final String MANHATTAN_HEURISTIC = "Manhattan";
+    public static final String BLOCKING_HEURISTIC = "Blocking Heuristic";
+    public static final String MANHATTAN_HEURISTIC = "Manhattan Distance";
     // public static final String CUSTOM_HEURISTIC = "Custom";
 
     // Helper functions
@@ -69,7 +69,7 @@ public class Constants {
             case 1 -> UCS;
             case 2 -> GBFS;
             case 3 -> ASTAR;
-            case 4 -> "Bonus Algorithm";
+            case 4 -> BEAM;
             default -> "Unknown";
         };
     }

@@ -130,7 +130,7 @@ public class Board {
             int row = pos.getRow();
             int col = pos.getCol();
             if (row >= 0 && row < boardArray.length && col >= 0 && col < boardArray[0].length) {
-                boardArray[row][col] = '.'; // hanya tandain yang ada di dalam board 
+                boardArray[row][col] = '.'; // hanya tandain yang ada di dalam board
             }
         }
 
@@ -145,8 +145,7 @@ public class Board {
             }
         }
         return true;
-    }   
-
+    }
 
     public int getPieceCountNoPrimary() {
         int count = 0;
@@ -157,7 +156,6 @@ public class Board {
         }
         return count;
     }
-    
 
     public boolean validatePrimaryPieceAlignedWithExit() {
         if (exitPosition == null || primaryPieceId == 0 || !pieces.containsKey(primaryPieceId)) {
@@ -198,30 +196,29 @@ public class Board {
 
             // Kanan
             if (exitPosition.getCol() == cols) {
-                return anchor.getCol() >= cols; 
+                return anchor.getCol() >= cols;
             }
 
             // Kiri
             if (exitPosition.getCol() == -1) {
-                return endCol < 0; 
+                return endCol < 0;
             }
         } else {
             int endRow = anchor.getRow() + size - 1;
 
             // Bawah
             if (exitPosition.getRow() == rows) {
-                return anchor.getRow() >= rows; 
+                return anchor.getRow() >= rows;
             }
 
             // Atas
             if (exitPosition.getRow() == -1) {
-                return endRow < 0; 
+                return endRow < 0;
             }
         }
 
         return false;
     }
-
 
     @Override
     public String toString() {
@@ -463,5 +460,5 @@ public class Board {
         }
 
         return sb.toString();
-    }    
+    }
 }

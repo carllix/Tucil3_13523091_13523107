@@ -29,27 +29,27 @@ public class CLI {
         int heuristicChoice = 0;
 
         // if (algorithmChoice == 2 || algorithmChoice == 3 || algorithmChoice == 4) {
-        //     heuristicChoice = promptHeuristic();
-        //     // Custom algorithm class for placeholder implementation
-        //     private static class CustomAlgorithm implements Algorithm {
-        //         private final int heuristicChoice;
+        // heuristicChoice = promptHeuristic();
+        // // Custom algorithm class for placeholder implementation
+        // private static class CustomAlgorithm implements Algorithm {
+        // private final int heuristicChoice;
 
-        //         public CustomAlgorithm(int heuristicChoice) {
-        //             this.heuristicChoice = heuristicChoice;
-        //         }
+        // public CustomAlgorithm(int heuristicChoice) {
+        // this.heuristicChoice = heuristicChoice;
+        // }
 
-        //         @Override
-        //         public SolutionPath findSolution(Board board) {
-        //             // Placeholder implementation - in reality, you would implement your own
-        //             // algorithm here
-        //             return new UCS().findSolution(board);
-        //         }
+        // @Override
+        // public SolutionPath findSolution(Board board) {
+        // // Placeholder implementation - in reality, you would implement your own
+        // // algorithm here
+        // return new UCS().findSolution(board);
+        // }
 
-        //         @Override
-        //         public String getName() {
-        //             return "Custom Algorithm (with Heuristic " + heuristicChoice + ")";
-        //         }
-        //     }
+        // @Override
+        // public String getName() {
+        // return "Custom Algorithm (with Heuristic " + heuristicChoice + ")";
+        // }
+        // }
         // }
 
         printStartMessage(board, algorithmChoice, heuristicChoice);

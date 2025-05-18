@@ -20,12 +20,11 @@ import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import model.*;
 
 import java.io.File;
 import java.util.*;
 
-// import
-import model.*;
 import algorithm.*;
 import heuristic.*;
 import util.*;
@@ -97,7 +96,7 @@ public class MainController {
     @FXML
     public void initialize() {
         algorithmComboBox.setItems(FXCollections.observableArrayList(
-                "Uniform Cost Search", "Greedy Best-First Search", "A* Search"));
+                "Uniform Cost Search", "Greedy Best-First Search", "A* Search", "Beam Search"));
         algorithmComboBox.setValue("Uniform Cost Search");
         algorithmComboBox.valueProperty().addListener((obs, oldVal, newVal) -> {
             boolean showHeuristic = newVal.contains("Greedy") || newVal.contains("A*");
@@ -315,17 +314,23 @@ public class MainController {
         } else {
             Heuristic heuristic;
             if (heuristicComboBox.getValue().equals("Manhattan Distance")) {
-                heuristic = new DummyHeuristic();
+                heuristic = new ManhattanDistance();
             } else {
-                heuristic = new DummyHeuristic();
-                // heuristic = new BlockingHeuristic();
+                heuristic = new BlockingHeuristic();
             }
 
             if (selectedAlgorithm.equals("Greedy Best-First Search")) {
-                return new GreedyBestFirstSearch(heuristic);
-            } else { // A* Search
-                // return new AStarSearch(heuristic);
-                return new GreedyBestFirstSearch(heuristic);
+                Algorithm gbfs = new GBFS();
+                gbfs.setHeuristic(heuristic);
+                return gbfs;
+            } else if (selectedAlgorithm.equals("A* Search")) {
+                Algorithm aStar = new AStar();
+                aStar.setHeuristic(heuristic);
+                return aStar;
+            } else {
+                Algorithm beam = new BeamSearch();
+                beam.setHeuristic(heuristic);
+                return beam;
             }
         }
     }
@@ -600,7 +605,7 @@ public class MainController {
         List<Move> moves = statePath.get(index).getMoveHistory();
         return moves.isEmpty() ? null : moves.get(moves.size() - 1);
     }
-    
+
     @FXML
     private void handleSaveSolution() {
         if (solution == null || !solution.isSolutionFound())
@@ -639,5 +644,5 @@ public class MainController {
         alert.setContentText(message);
         alert.showAndWait();
     }
-    
+
 }

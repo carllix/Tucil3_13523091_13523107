@@ -61,7 +61,7 @@ public class Piece {
                 anchor.setCol(anchor.getCol() - distance);
                 break;
         }
-    }    
+    }
 
     public int canMove(Board board, int direction) {
         if (isHorizontal && (direction == Move.UP || direction == Move.DOWN)) {
@@ -85,45 +85,45 @@ public class Piece {
             case Move.UP:
                 row--;
                 if (isPrimary && row < 0 && exitPos.getRow() == -1 && exitPos.getCol() == col) {
-                    return 1; 
+                    return 1;
                 }
-                
+
                 while (row >= 0 && boardArray[row][col] == '.') {
                     maxDistance++;
                     row--;
                 }
                 break;
-                
+
             case Move.RIGHT:
                 col += size;
                 if (isPrimary && col >= colCount && exitPos.getRow() == row && exitPos.getCol() == colCount) {
-                    return 1; 
+                    return 1;
                 }
-                
+
                 while (col < colCount && boardArray[row][col] == '.') {
                     maxDistance++;
                     col++;
                 }
                 break;
-                
+
             case Move.DOWN:
                 row += size;
                 if (isPrimary && row >= rowCount && exitPos.getRow() == rowCount && exitPos.getCol() == col) {
-                    return 1; 
+                    return 1;
                 }
-                
+
                 while (row < rowCount && boardArray[row][col] == '.') {
                     maxDistance++;
                     row++;
                 }
                 break;
-                
+
             case Move.LEFT:
                 col--;
                 if (isPrimary && col < 0 && exitPos.getRow() == row && exitPos.getCol() == -1) {
-                    return 1; 
+                    return 1;
                 }
-                
+
                 while (col >= 0 && boardArray[row][col] == '.') {
                     maxDistance++;
                     col--;
@@ -142,7 +142,7 @@ public class Piece {
             result.add(new Position(row, col));
         }
         return result;
-    }    
+    }
 
     @Override
     public String toString() {
