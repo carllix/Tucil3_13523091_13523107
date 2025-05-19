@@ -9,7 +9,6 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -175,8 +174,6 @@ public class MainController {
             return;
         }
 
-        // CELL_SIZE = (int) Math.min(availableWidth / cols, availableHeight / rows);
-
         double boardWidth = cols * CELL_SIZE + 2 * BOARD_MARGIN;
         double boardHeight = rows * CELL_SIZE + 2 * BOARD_MARGIN;
 
@@ -219,7 +216,7 @@ public class MainController {
 
         Label exitLabel = new Label("Exit");
         exitLabel.setTextFill(Color.DARKGREEN);
-        exitLabel.setStyle("-fx-font-weight: normal;");
+        exitLabel.setStyle("-fx-font-weight: bold;");
         exitLabel.setLayoutX(exitX + CELL_SIZE / 4.0);
         exitLabel.setLayoutY(exitY + CELL_SIZE / 4.0);
 
@@ -277,11 +274,9 @@ public class MainController {
         resetUI();
         drawInitialBoard();
 
-        // Disable solve button during calculation
         solveButton.setDisable(true);
         statusLabel.setText("Solving...");
 
-        // Run solver in background thread
         new Thread(() -> {
             Algorithm algorithm = createSelectedAlgorithm();
             solution = algorithm.findSolution(initialBoard);
@@ -362,7 +357,7 @@ public class MainController {
 
         if (animation != null && animation.getStatus() == javafx.animation.Animation.Status.RUNNING) {
             animation.pause();
-            playButton.setText("Play");
+            playButton.setText("▶");
         } else {
             if (currentStateIndex >= statePath.size() - 1) {
                 currentStateIndex = 0;
@@ -370,7 +365,7 @@ public class MainController {
             }
 
             startAnimation();
-            playButton.setText("Pause");
+            playButton.setText("⏸");
         }
     }
 
@@ -380,7 +375,7 @@ public class MainController {
 
         animation = new SequentialTransition();
         double speedFactor = speedSlider.getValue() / 5.0;
-        Duration stepDuration = Duration.seconds(0.5 / speedFactor); // 0.5 detik tiap langkah
+        Duration stepDuration = Duration.seconds(0.5 / speedFactor); 
 
         for (int i = currentStateIndex + 1; i < statePath.size(); i++) {
             final int index = i;
@@ -417,14 +412,13 @@ public class MainController {
 
                     animation.getChildren().add(timeline);
 
-                    // Tambahkan jeda antar langkah (opsional tapi kelihatan halus)
                     animation.getChildren().add(new PauseTransition(Duration.millis(100)));
                 }
             }
         }
 
         animation.setOnFinished(e -> {
-            playButton.setText("Play");
+            playButton.setText("▶");
 
             Platform.runLater(() -> {
                 statusLabel.setText("Solved!");
@@ -444,10 +438,9 @@ public class MainController {
         if (solution == null || !solution.isSolutionFound())
             return;
 
-        // Stop any running animation
         if (animation != null) {
             animation.stop();
-            playButton.setText("Play");
+            playButton.setText("▶");
         }
 
         if (currentStateIndex < statePath.size() - 1) {
@@ -457,7 +450,6 @@ public class MainController {
 
             solutionProgress.setProgress((double) currentStateIndex / (statePath.size() - 1));
 
-            // Update move info
             List<Move> moves = state.getMoveHistory();
             if (!moves.isEmpty()) {
                 Move lastMove = moves.get(moves.size() - 1);
@@ -492,13 +484,11 @@ public class MainController {
         if (solution == null)
             return;
 
-        // Stop any running animation
         if (animation != null) {
             animation.stop();
-            playButton.setText("Play");
+            playButton.setText("▶");
         }
 
-        // Reset to initial state
         currentStateIndex = 0;
         updateBoardDisplay(statePath.get(0).getBoard());
         solutionProgress.setProgress(0);
@@ -549,7 +539,7 @@ public class MainController {
 
         if (animation != null) {
             animation.stop();
-            playButton.setText("Play");
+            playButton.setText("▶");
         }
 
         if (currentStateIndex < statePath.size() - 1) {
@@ -575,7 +565,7 @@ public class MainController {
 
         if (animation != null) {
             animation.stop();
-            playButton.setText("Play");
+            playButton.setText("▶");
         }
 
         if (currentStateIndex > 0) {
@@ -617,7 +607,6 @@ public class MainController {
 
         if (file != null) {
             try {
-                // Misal kamu pakai UCS, sesuaikan dengan algorithm yang aktif
                 String algoName = algorithmComboBox.getValue();
                 FileHandler.writeSolutionToFile(
                         file.getAbsolutePath(),
@@ -635,11 +624,27 @@ public class MainController {
     }
 
     private void showInfo(String title, String message) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
-    }
+        Stage dialogStage = new Stage();
+        dialogStage.initModality(Modality.APPLICATION_MODAL);
+        dialogStage.setTitle(title);
+
+        Label label = new Label(message);
+        label.setWrapText(true);
+        label.setStyle("-fx-font-size: 13px; -fx-text-fill: #4A4A4A;");
+
+        Button okButton = new Button("OK");
+        okButton.setOnAction(e -> dialogStage.close());
+        okButton.setStyle("-fx-background-color: #8ACCD5; -fx-text-fill: white; -fx-font-weight: bold;");
+
+        VBox layout = new VBox(15, label, okButton);
+        layout.setAlignment(Pos.CENTER);
+        layout.setPadding(new Insets(20));
+        layout.setStyle("-fx-background-color: #F8F8E1; -fx-border-color: #FFC1DA; -fx-border-width: 2;");
+
+        Scene scene = new Scene(layout, 400, 400);
+        dialogStage.setScene(scene);
+        dialogStage.setResizable(false);
+        dialogStage.showAndWait();
+    }    
 
 }

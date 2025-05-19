@@ -4,12 +4,16 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Label?>
 <?import javafx.geometry.Pos?>
 
-<AnchorPane style="-fx-background-color: #1e1e1e;" xmlns:fx="http://javafx.com/fxml"
+<AnchorPane style="-fx-background-color: #FF90BB;" xmlns:fx="http://javafx.com/fxml"
     fx:controller="gui.LoadingController" prefWidth="800" prefHeight="600">
+
     <VBox alignment="CENTER" spacing="20" layoutX="0" layoutY="0" prefWidth="800" prefHeight="600">
         <ImageView fx:id="carImage" fitHeight="200" fitWidth="200" />
+        <Label text="Rush Hour Solver"
+            style="-fx-font-size: 24px; -fx-text-fill: white; -fx-font-weight: bold;" />
         <ProgressBar fx:id="progressBar" prefWidth="300" />
     </VBox>
 </AnchorPane>

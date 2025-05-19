@@ -22,10 +22,8 @@ public class LoadingController {
 
     @FXML
     public void initialize() {
-        // Load image from resources
         carImage.setImage(new Image(getClass().getResource("/gui/assets/loading.png").toExternalForm()));
 
-        // Simulate loading
         PauseTransition delay = new PauseTransition(Duration.seconds(3));
         delay.setOnFinished(e -> {
             try {

@@ -15,7 +15,6 @@ public class RushHourApp extends Application {
     @Override
     public void start(Stage primaryStage) {
         try {
-            // Load loading screen first
             FXMLLoader loadingLoader = new FXMLLoader(getClass().getResource("LoadingScreen.fxml"));
             Parent loadingRoot = loadingLoader.load();
             Scene loadingScene = new Scene(loadingRoot);
@@ -23,23 +22,21 @@ public class RushHourApp extends Application {
             primaryStage.setTitle("Rush Hour Solver - Loading...");
             primaryStage.setScene(loadingScene);
 
-            // Set fixed size for consistency
             primaryStage.setWidth(800);
             primaryStage.setHeight(600);
             primaryStage.setResizable(false);
             primaryStage.show();
 
-            // After 3 seconds, switch to MainView
             PauseTransition delay = new PauseTransition(Duration.seconds(3));
             delay.setOnFinished(event -> {
                 try {
                     FXMLLoader mainLoader = new FXMLLoader(getClass().getResource("MainView.fxml"));
                     Parent mainRoot = mainLoader.load();
                     Scene mainScene = new Scene(mainRoot);
+                    mainScene.getStylesheets().add(getClass().getResource("/gui/assets/style.css").toExternalForm());
                     primaryStage.setScene(mainScene);
                     primaryStage.setTitle("Rush Hour Solver");
 
-                    // Optional: keep size locked after transition
                     primaryStage.setWidth(800);
                     primaryStage.setHeight(600);
                 } catch (IOException ex) {

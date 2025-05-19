@@ -1,0 +1,114 @@
+.root {
+    -fx-font-family: "Segoe UI", sans-serif;
+    -fx-background-color: #FF90BB;
+    -fx-text-fill: white;
+}
+
+#sidePanel {
+    -fx-background-color: #F8F8E1;
+    -fx-font-weight: normal;
+}
+
+#sidePanel .label {
+    -fx-text-fill: #4A4A4A;
+}
+
+.label {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+.label.title {
+    -fx-font-size: 10pt;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.button {
+    -fx-background-color: #8ACCD5;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-border-color: transparent;
+    -fx-cursor: hand;
+    -fx-padding: 6px 12px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 2, 0.5, 0, 1);
+}
+
+.button:hover {
+    -fx-background-color: #75B8CC;
+}
+
+#playButton,
+#stepBackButton,
+#stepForwardButton,
+#resetButton {
+    -fx-background-color: #FFFFFF;
+    -fx-text-fill: #4A4A4A;
+    -fx-pref-width: 60px;
+    -fx-padding: 5px 10px;
+    -fx-font-size: 12px;
+}
+
+#playButton:hover,
+#stepBackButton:hover,
+#stepForwardButton:hover,
+#resetButton:hover {
+    -fx-background-color: #EAEAEA;
+}
+
+.combo-box {
+    -fx-background-color: #F8F8E1;
+    -fx-border-color: white;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-font-weight: bold;
+    -fx-text-fill: #4A4A4A;
+}
+
+.combo-box .list-cell {
+    -fx-text-fill: #4A4A4A;
+}
+
+.combo-box .arrow-button {
+    -fx-background-color: transparent;
+}
+
+.combo-box .arrow {
+    -fx-background-color: #4A4A4A;
+}
+
+.combo-box-popup .list-cell:hover {
+    -fx-background-color: #EAEAEA;
+}
+
+.combo-box-popup .list-cell:filled:selected,
+.combo-box-popup .list-cell:filled:selected:hover {
+    -fx-background-color: #F8F8E1;
+    -fx-text-fill: #4A4A4A;
+}
+
+#boardPane {
+    -fx-background-color: #F8F8E1;
+    -fx-border-color: #FF90BB;
+}
+
+.slider .thumb {
+    -fx-background-color: white;
+}
+
+.progress-bar > .bar {
+    -fx-background-color: #8ACCD5;
+}
+
+.button:disabled {
+    -fx-opacity: 0.6;
+    -fx-cursor: default;
+}
+
+#sidePanel .grid-label {
+    -fx-font-size: 10px;
+    -fx-text-fill: #4A4A4A;
+    -fx-font-weight: normal;
+}
