@@ -1,0 +1,77 @@
+Algorithm: Uniform Cost Search
+Step count: 8
+Nodes visited: 26953
+Execution time: 249 ms
+
+Initial Board
+AAB..F 
+..BCDF 
+GPPCDFK
+G..III 
+GHH... 
+LL.MM. 
+
+Move 1: C-atas
+AABC.F 
+..BCDF 
+GPP.DFK
+G..III 
+GHH... 
+LL.MM. 
+
+Move 2: I-kiri
+AABC.F 
+..BCDF 
+GPP.DFK
+G.III. 
+GHH... 
+LL.MM. 
+
+Move 3: D-atas
+AABCDF 
+..BCDF 
+GPP..FK
+G.III. 
+GHH... 
+LL.MM. 
+
+Move 4: F-bawah
+AABCD. 
+..BCD. 
+GPP...K
+G.IIIF 
+GHH..F 
+LL.MMF 
+
+Move 5: P-kanan
+AABCD. 
+..BCD. 
+G.PP..K
+G.IIIF 
+GHH..F 
+LL.MMF 
+
+Move 6: P-kanan
+AABCD. 
+..BCD. 
+G..PP.K
+G.IIIF 
+GHH..F 
+LL.MMF 
+
+Move 7: P-kanan
+AABCD. 
+..BCD. 
+G...PPK
+G.IIIF 
+GHH..F 
+LL.MMF 
+
+Move 8: P-kanan
+AABCD. 
+..BCD. 
+G....PK
+G.IIIF 
+GHH..F 
+LL.MMF 
+

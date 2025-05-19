@@ -1,0 +1,50 @@
+Algorithm: UCS
+Step count: 4
+Nodes visited: 9473
+Execution time: 282 ms
+
+Initial Board
+ K    
+AAB..F
+..BCDF
+GPBCDF
+GP.III
+GHH...
+LL.MM.
+
+Move 1: B-bawah
+ K    
+AA...F
+..BCDF
+GPBCDF
+GPBIII
+GHH...
+LL.MM.
+
+Move 2: A-kanan
+ K    
+..AA.F
+..BCDF
+GPBCDF
+GPBIII
+GHH...
+LL.MM.
+
+Move 3: P-atas
+ K    
+.PAA.F
+.PBCDF
+G.BCDF
+G.BIII
+GHH...
+LL.MM.
+
+Move 4: P-atas
+ K    
+.PAA.F
+..BCDF
+G.BCDF
+G.BIII
+GHH...
+LL.MM.
+

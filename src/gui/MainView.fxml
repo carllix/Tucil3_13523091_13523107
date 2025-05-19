@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+    xmlns:fx="http://javafx.com/fxml"
+    fx:controller="gui.MainController"
+    prefHeight="600" prefWidth="800"
+    stylesheets="@style.css">
+
+    <top>
+        <VBox spacing="10">
+            <padding>
+                <Insets top="10" right="10" bottom="10" left="10" />
+            </padding>
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Button fx:id="loadButton" text="Load Configuration" onAction="#handleLoadFile" />
+                <Label fx:id="filePathLabel" text="No file loaded" />
+            </HBox>
+
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Label text="Algorithm:" />
+                <ComboBox fx:id="algorithmComboBox" prefWidth="150" />
+
+                <Label text="Heuristic:" fx:id="heuristicLabel" visible="false" managed="false" />
+                <ComboBox fx:id="heuristicComboBox" prefWidth="150" visible="false" managed="false" />
+
+                <Button fx:id="solveButton" text="Solve" onAction="#handleSolve" disable="true" />
+            </HBox>
+        </VBox>
+    </top>
+
+    <center>
+        <StackPane fx:id="boardContainer" alignment="CENTER">
+            <padding>
+                <Insets top="10" right="10" bottom="10" left="10" />
+            </padding>
+            <Pane fx:id="boardPane" />
+        </StackPane>
+    </center>
+
+    <right>
+        <VBox fx:id="sidePanel" spacing="10" prefWidth="200">
+            <padding>
+                <Insets top="10" right="10" bottom="10" left="10" />
+            </padding>
+
+            <Button fx:id="saveSolutionButton" text="💾 Save Solution"
+                onAction="#handleSaveSolution" disable="true" />
+
+            <Label text="Solution Information" styleClass="title" />
+            <Separator />
+
+            <GridPane hgap="10" vgap="5">
+                <columnConstraints>
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                </columnConstraints>
+
+                <Label text="Status:" styleClass="grid-label" GridPane.rowIndex="0"
+                    GridPane.columnIndex="0" />
+                <Label fx:id="statusLabel" styleClass="grid-label" GridPane.rowIndex="0"
+                    GridPane.columnIndex="1" />
+
+                <Label text="Nodes Visited:" styleClass="grid-label" GridPane.rowIndex="1"
+                    GridPane.columnIndex="0" />
+                <Label fx:id="nodesVisitedLabel" styleClass="grid-label" GridPane.rowIndex="1"
+                    GridPane.columnIndex="1" />
+
+                <Label text="Steps:" styleClass="grid-label" GridPane.rowIndex="2"
+                    GridPane.columnIndex="0" />
+                <Label fx:id="stepsLabel" styleClass="grid-label" GridPane.rowIndex="2"
+                    GridPane.columnIndex="1" />
+
+                <Label text="Execution Time:" styleClass="grid-label" GridPane.rowIndex="3"
+                    GridPane.columnIndex="0" />
+                <Label fx:id="executionTimeLabel" styleClass="grid-label" GridPane.rowIndex="3"
+                    GridPane.columnIndex="1" />
+            </GridPane>
+            
+
+            <Separator />
+
+            <Label text="Animation Controls" styleClass="title" />
+            <HBox spacing="10" alignment="CENTER">
+                <Button fx:id="playButton" text="▶" onAction="#handlePlay" disable="true" />
+                <Button fx:id="stepBackButton" text="⏮" onAction="#handleStepBack" disable="true" />
+                <Button fx:id="stepForwardButton" text="⏭" onAction="#handleStepForward"
+                    disable="true" />
+                <Button fx:id="resetButton" text="🔁" onAction="#handleReset" disable="true" />
+            </HBox>
+
+            <Separator />
+
+            <Label text="Animation Speed" />
+            <Slider fx:id="speedSlider" min="1" max="10" value="5" />
+
+            <Separator />
+
+            <Label text="Move History" styleClass="title" />
+            <ListView fx:id="moveHistoryListView" VBox.vgrow="ALWAYS" />
+        </VBox>
+    </right>
+
+    <bottom>
+        <HBox spacing="10" alignment="CENTER_RIGHT">
+            <padding>
+                <Insets top="10" right="10" bottom="10" left="10" />
+            </padding>
+            <Label fx:id="currentMoveLabel" text="No move" HBox.hgrow="ALWAYS" />
+            <ProgressBar fx:id="solutionProgress" prefWidth="200" progress="0.0" />
+        </HBox>
+    </bottom>
+</BorderPane>

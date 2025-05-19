@@ -1,0 +1,50 @@
+Algorithm: A*
+Step count: 4
+Nodes visited: 3527
+Execution time: 128 ms
+
+Initial Board
+AAB..F
+..BCDF
+GPBCDF
+GP.III
+GHH...
+LL.MM.
+ K    
+
+Move 1: M-kanan
+AAB..F
+..BCDF
+GPBCDF
+GP.III
+GHH...
+LL..MM
+ K    
+
+Move 2: L-kanan
+AAB..F
+..BCDF
+GPBCDF
+GP.III
+GHH...
+..LLMM
+ K    
+
+Move 3: H-kanan
+AAB..F
+..BCDF
+GPBCDF
+GP.III
+G.HH..
+..LLMM
+ K    
+
+Move 4: P-bawah
+AAB..F
+..BCDF
+G.BCDF
+G..III
+G.HH..
+..LLMM
+ K    
+

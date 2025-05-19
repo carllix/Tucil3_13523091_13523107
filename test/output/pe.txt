@@ -1,0 +1,181 @@
+Algorithm: Greedy Best-First Search
+Step count: 21
+Nodes visited: 206
+Execution time: 7 ms
+
+Initial Board
+AAB..F 
+..BCDF 
+GPPCDFK
+G..III 
+GHH... 
+LL.MM. 
+
+Move 1: C-atas
+AABC.F 
+..BCDF 
+GPP.DFK
+G..III 
+GHH... 
+LL.MM. 
+
+Move 2: P-kanan
+AABC.F 
+..BCDF 
+G.PPDFK
+G..III 
+GHH... 
+LL.MM. 
+
+Move 3: D-atas
+AABCDF 
+..BCDF 
+G.PP.FK
+G..III 
+GHH... 
+LL.MM. 
+
+Move 4: P-kanan
+AABCDF 
+..BCDF 
+G..PPFK
+G..III 
+GHH... 
+LL.MM. 
+
+Move 5: G-atas
+AABCDF 
+G.BCDF 
+G..PPFK
+G..III 
+.HH... 
+LL.MM. 
+
+Move 6: B-bawah
+AA.CDF 
+G.BCDF 
+G.BPPFK
+G..III 
+.HH... 
+LL.MM. 
+
+Move 7: M-kanan
+AA.CDF 
+G.BCDF 
+G.BPPFK
+G..III 
+.HH... 
+LL..MM 
+
+Move 8: M-kiri
+AA.CDF 
+G.BCDF 
+G.BPPFK
+G..III 
+.HH... 
+LLMM.. 
+
+Move 9: I-kiri
+AA.CDF 
+G.BCDF 
+G.BPPFK
+GIII.. 
+.HH... 
+LLMM.. 
+
+Move 10: M-kanan
+AA.CDF 
+G.BCDF 
+G.BPPFK
+GIII.. 
+.HH... 
+LL..MM 
+
+Move 11: M-kiri
+AA.CDF 
+G.BCDF 
+G.BPPFK
+GIII.. 
+.HH... 
+LL.MM. 
+
+Move 12: F-bawah
+AA.CD. 
+G.BCD. 
+G.BPP.K
+GIII.F 
+.HH..F 
+LL.MMF 
+
+Move 13: P-kanan
+AA.CD. 
+G.BCD. 
+G.B.PPK
+GIII.F 
+.HH..F 
+LL.MMF 
+
+Move 14: H-kanan
+AA.CD. 
+G.BCD. 
+G.B.PPK
+GIII.F 
+..HH.F 
+LL.MMF 
+
+Move 15: L-kanan
+AA.CD. 
+G.BCD. 
+G.B.PPK
+GIII.F 
+..HH.F 
+.LLMMF 
+
+Move 16: I-kanan
+AA.CD. 
+G.BCD. 
+G.B.PPK
+G.IIIF 
+..HH.F 
+.LLMMF 
+
+Move 17: B-atas
+AABCD. 
+G.BCD. 
+G...PPK
+G.IIIF 
+..HH.F 
+.LLMMF 
+
+Move 18: H-kanan
+AABCD. 
+G.BCD. 
+G...PPK
+G.IIIF 
+...HHF 
+.LLMMF 
+
+Move 19: L-kiri
+AABCD. 
+G.BCD. 
+G...PPK
+G.IIIF 
+...HHF 
+LL.MMF 
+
+Move 20: M-kiri
+AABCD. 
+G.BCD. 
+G...PPK
+G.IIIF 
+...HHF 
+LLMM.F 
+
+Move 21: P-kanan
+AABCD. 
+G.BCD. 
+G.....K
+G.IIIF 
+...HHF 
+LLMM.F 
+
