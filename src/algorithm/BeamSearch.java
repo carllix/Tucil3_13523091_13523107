@@ -11,7 +11,7 @@ public class BeamSearch implements Algorithm {
 
     private Heuristic heuristic;
     private final int beamWidth = 5;
-    private final int maxIterations = 10000;
+    // private final int maxIterations = 10000;
 
     @Override
     public SolutionPath findSolution(Board initialBoard) {
@@ -29,7 +29,7 @@ public class BeamSearch implements Algorithm {
         Set<String> visited = new HashSet<>();
         visited.add(initialBoard.toString());
 
-        while (!frontier.isEmpty() && iterations < maxIterations) {
+        while (!frontier.isEmpty()) {
             iterations++;
             List<State> current = new ArrayList<>(); // Ambil sesuai beamWitdth terbaik
             int count = 0;
