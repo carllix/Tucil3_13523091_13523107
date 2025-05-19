@@ -1,0 +1,9 @@
+6 6
+10
+ K
+AAB..C
+DDBEEC
+WP..QQ
+WPR...
+.PR..T
+..XX.T
