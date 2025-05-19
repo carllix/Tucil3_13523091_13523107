@@ -1,0 +1,68 @@
+Algorithm: Greedy Best-First Search
+Step count: 6
+Nodes visited: 37
+Execution time: 6 ms
+
+Initial Board
+AAB..F
+..BCDF
+GPBCDF
+GP.III
+GHH...
+LL.MM.
+ K    
+
+Move 1: H-kanan
+AAB..F
+..BCDF
+GPBCDF
+GP.III
+G...HH
+LL.MM.
+ K    
+
+Move 2: P-bawah
+AAB..F
+..BCDF
+G.BCDF
+GP.III
+GP..HH
+LL.MM.
+ K    
+
+Move 3: B-bawah
+AA...F
+..BCDF
+G.BCDF
+GPBIII
+GP..HH
+LL.MM.
+ K    
+
+Move 4: M-kanan
+AA...F
+..BCDF
+G.BCDF
+GPBIII
+GP..HH
+LL..MM
+ K    
+
+Move 5: L-kanan
+AA...F
+..BCDF
+G.BCDF
+GPBIII
+GP..HH
+..LLMM
+ K    
+
+Move 6: P-bawah
+AA...F
+..BCDF
+G.BCDF
+G.BIII
+G...HH
+..LLMM
+ K    
+

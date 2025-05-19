@@ -1,7 +1,7 @@
 Algorithm: Uniform Cost Search
-Step count: 8
-Nodes visited: 26953
-Execution time: 249 ms
+Step count: 5
+Nodes visited: 34839
+Execution time: 780 ms
 
 Initial Board
 AAB..F 
@@ -46,31 +46,7 @@ LL.MMF
 Move 5: P-kanan
 AABCD. 
 ..BCD. 
-G.PP..K
-G.IIIF 
-GHH..F 
-LL.MMF 
-
-Move 6: P-kanan
-AABCD. 
-..BCD. 
-G..PP.K
-G.IIIF 
-GHH..F 
-LL.MMF 
-
-Move 7: P-kanan
-AABCD. 
-..BCD. 
-G...PPK
-G.IIIF 
-GHH..F 
-LL.MMF 
-
-Move 8: P-kanan
-AABCD. 
-..BCD. 
-G....PK
+G.....K
 G.IIIF 
 GHH..F 
 LL.MMF 

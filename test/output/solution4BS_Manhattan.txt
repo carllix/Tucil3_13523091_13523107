@@ -1,0 +1,662 @@
+Algorithm: Beam Search
+Step count: 72
+Nodes visited: 372
+Execution time: 192 ms
+
+Initial Board
+ K    
+AAB..C
+DDBEEC
+WP..QQ
+WPR...
+.PR..T
+..XX.T
+
+Move 1: Q-kiri
+ K    
+AAB..C
+DDBEEC
+WP.QQ.
+WPR...
+.PR..T
+..XX.T
+
+Move 2: R-atas
+ K    
+AAB..C
+DDBEEC
+WPRQQ.
+WPR...
+.P...T
+..XX.T
+
+Move 3: C-bawah
+ K    
+AAB...
+DDBEEC
+WPRQQC
+WPR...
+.P...T
+..XX.T
+
+Move 4: T-atas
+ K    
+AAB...
+DDBEEC
+WPRQQC
+WPR..T
+.P...T
+..XX..
+
+Move 5: R-bawah
+ K    
+AAB...
+DDBEEC
+WP.QQC
+WPR..T
+.PR..T
+..XX..
+
+Move 6: Q-kiri
+ K    
+AAB...
+DDBEEC
+WPQQ.C
+WPR..T
+.PR..T
+..XX..
+
+Move 7: C-atas
+ K    
+AAB..C
+DDBEEC
+WPQQ..
+WPR..T
+.PR..T
+..XX..
+
+Move 8: T-atas
+ K    
+AAB..C
+DDBEEC
+WPQQ.T
+WPR..T
+.PR...
+..XX..
+
+Move 9: W-bawah
+ K    
+AAB..C
+DDBEEC
+.PQQ.T
+WPR..T
+WPR...
+..XX..
+
+Move 10: X-kiri
+ K    
+AAB..C
+DDBEEC
+.PQQ.T
+WPR..T
+WPR...
+.XX...
+
+Move 11: Q-kanan
+ K    
+AAB..C
+DDBEEC
+.P.QQT
+WPR..T
+WPR...
+.XX...
+
+Move 12: R-atas
+ K    
+AAB..C
+DDBEEC
+.PRQQT
+WPR..T
+WP....
+.XX...
+
+Move 13: T-bawah
+ K    
+AAB..C
+DDBEEC
+.PRQQ.
+WPR..T
+WP...T
+.XX...
+
+Move 14: Q-kanan
+ K    
+AAB..C
+DDBEEC
+.PR.QQ
+WPR..T
+WP...T
+.XX...
+
+Move 15: R-bawah
+ K    
+AAB..C
+DDBEEC
+.P..QQ
+WPR..T
+WPR..T
+.XX...
+
+Move 16: B-bawah
+ K    
+AA...C
+DDBEEC
+.PB.QQ
+WPR..T
+WPR..T
+.XX...
+
+Move 17: Q-kiri
+ K    
+AA...C
+DDBEEC
+.PBQQ.
+WPR..T
+WPR..T
+.XX...
+
+Move 18: A-kanan
+ K    
+.AA..C
+DDBEEC
+.PBQQ.
+WPR..T
+WPR..T
+.XX...
+
+Move 19: C-bawah
+ K    
+.AA...
+DDBEEC
+.PBQQC
+WPR..T
+WPR..T
+.XX...
+
+Move 20: A-kanan
+ K    
+..AA..
+DDBEEC
+.PBQQC
+WPR..T
+WPR..T
+.XX...
+
+Move 21: W-bawah
+ K    
+..AA..
+DDBEEC
+.PBQQC
+.PR..T
+WPR..T
+WXX...
+
+Move 22: A-kanan
+ K    
+...AA.
+DDBEEC
+.PBQQC
+.PR..T
+WPR..T
+WXX...
+
+Move 23: B-atas
+ K    
+..BAA.
+DDBEEC
+.P.QQC
+.PR..T
+WPR..T
+WXX...
+
+Move 24: Q-kiri
+ K    
+..BAA.
+DDBEEC
+.PQQ.C
+.PR..T
+WPR..T
+WXX...
+
+Move 25: A-kanan
+ K    
+..B.AA
+DDBEEC
+.PQQ.C
+.PR..T
+WPR..T
+WXX...
+
+Move 26: T-bawah
+ K    
+..B.AA
+DDBEEC
+.PQQ.C
+.PR...
+WPR..T
+WXX..T
+
+Move 27: Q-kanan
+ K    
+..B.AA
+DDBEEC
+.P.QQC
+.PR...
+WPR..T
+WXX..T
+
+Move 28: R-atas
+ K    
+..B.AA
+DDBEEC
+.PRQQC
+.PR...
+WP...T
+WXX..T
+
+Move 29: A-kiri
+ K    
+..BAA.
+DDBEEC
+.PRQQC
+.PR...
+WP...T
+WXX..T
+
+Move 30: C-atas
+ K    
+..BAAC
+DDBEEC
+.PRQQ.
+.PR...
+WP...T
+WXX..T
+
+Move 31: Q-kanan
+ K    
+..BAAC
+DDBEEC
+.PR.QQ
+.PR...
+WP...T
+WXX..T
+
+Move 32: R-bawah
+ K    
+..BAAC
+DDBEEC
+.P..QQ
+.PR...
+WPR..T
+WXX..T
+
+Move 33: Q-kiri
+ K    
+..BAAC
+DDBEEC
+.PQQ..
+.PR...
+WPR..T
+WXX..T
+
+Move 34: C-bawah
+ K    
+..BAA.
+DDBEE.
+.PQQ.C
+.PR..C
+WPR..T
+WXX..T
+
+Move 35: Q-kanan
+ K    
+..BAA.
+DDBEE.
+.P.QQC
+.PR..C
+WPR..T
+WXX..T
+
+Move 36: B-bawah
+ K    
+...AA.
+DDBEE.
+.PBQQC
+.PR..C
+WPR..T
+WXX..T
+
+Move 37: A-kiri
+ K    
+..AA..
+DDBEE.
+.PBQQC
+.PR..C
+WPR..T
+WXX..T
+
+Move 38: C-atas
+ K    
+..AA.C
+DDBEEC
+.PBQQ.
+.PR...
+WPR..T
+WXX..T
+
+Move 39: Q-kanan
+ K    
+..AA.C
+DDBEEC
+.PB.QQ
+.PR...
+WPR..T
+WXX..T
+
+Move 40: A-kiri
+ K    
+.AA..C
+DDBEEC
+.PB.QQ
+.PR...
+WPR..T
+WXX..T
+
+Move 41: W-atas
+ K    
+.AA..C
+DDBEEC
+.PB.QQ
+WPR...
+WPR..T
+.XX..T
+
+Move 42: A-kanan
+ K    
+...AAC
+DDBEEC
+.PB.QQ
+WPR...
+WPR..T
+.XX..T
+
+Move 43: W-atas
+ K    
+...AAC
+DDBEEC
+WPB.QQ
+WPR...
+.PR..T
+.XX..T
+
+Move 44: T-atas
+ K    
+...AAC
+DDBEEC
+WPB.QQ
+WPR..T
+.PR..T
+.XX...
+
+Move 45: Q-kiri
+ K    
+...AAC
+DDBEEC
+WPBQQ.
+WPR..T
+.PR..T
+.XX...
+
+Move 46: T-atas
+ K    
+...AAC
+DDBEEC
+WPBQQT
+WPR..T
+.PR...
+.XX...
+
+Move 47: A-kiri
+ K    
+..AA.C
+DDBEEC
+WPBQQT
+WPR..T
+.PR...
+.XX...
+
+Move 48: W-bawah
+ K    
+..AA.C
+DDBEEC
+.PBQQT
+WPR..T
+WPR...
+.XX...
+
+Move 49: X-kiri
+ K    
+..AA.C
+DDBEEC
+.PBQQT
+WPR..T
+WPR...
+XX....
+
+Move 50: A-kiri
+ K    
+.AA..C
+DDBEEC
+.PBQQT
+WPR..T
+WPR...
+XX....
+
+Move 51: R-bawah
+ K    
+.AA..C
+DDBEEC
+.PBQQT
+WP...T
+WPR...
+XXR...
+
+Move 52: A-kiri
+ K    
+AA...C
+DDBEEC
+.PBQQT
+WP...T
+WPR...
+XXR...
+
+Move 53: B-atas
+ K    
+AAB..C
+DDBEEC
+.P.QQT
+WP...T
+WPR...
+XXR...
+
+Move 54: Q-kiri
+ K    
+AAB..C
+DDBEEC
+.PQQ.T
+WP...T
+WPR...
+XXR...
+
+Move 55: T-bawah
+ K    
+AAB..C
+DDBEEC
+.PQQ..
+WP...T
+WPR..T
+XXR...
+
+Move 56: Q-kanan
+ K    
+AAB..C
+DDBEEC
+.P..QQ
+WP...T
+WPR..T
+XXR...
+
+Move 57: B-bawah
+ K    
+AA...C
+DD.EEC
+.PB.QQ
+WPB..T
+WPR..T
+XXR...
+
+Move 58: Q-kiri
+ K    
+AA...C
+DD.EEC
+.PBQQ.
+WPB..T
+WPR..T
+XXR...
+
+Move 59: A-kanan
+ K    
+.AA..C
+DD.EEC
+.PBQQ.
+WPB..T
+WPR..T
+XXR...
+
+Move 60: C-bawah
+ K    
+.AA...
+DD.EEC
+.PBQQC
+WPB..T
+WPR..T
+XXR...
+
+Move 61: D-kanan
+ K    
+.AA...
+.DDEEC
+.PBQQC
+WPB..T
+WPR..T
+XXR...
+
+Move 62: W-atas
+ K    
+WAA...
+WDDEEC
+.PBQQC
+.PB..T
+.PR..T
+XXR...
+
+Move 63: C-atas
+ K    
+WAA..C
+WDDEEC
+.PBQQ.
+.PB..T
+.PR..T
+XXR...
+
+Move 64: A-kanan
+ K    
+W..AAC
+WDDEEC
+.PBQQ.
+.PB..T
+.PR..T
+XXR...
+
+Move 65: T-bawah
+ K    
+W..AAC
+WDDEEC
+.PBQQ.
+.PB...
+.PR..T
+XXR..T
+
+Move 66: W-bawah
+ K    
+...AAC
+WDDEEC
+WPBQQ.
+.PB...
+.PR..T
+XXR..T
+
+Move 67: A-kiri
+ K    
+.AA..C
+WDDEEC
+WPBQQ.
+.PB...
+.PR..T
+XXR..T
+
+Move 68: C-bawah
+ K    
+.AA...
+WDDEE.
+WPBQQC
+.PB..C
+.PR..T
+XXR..T
+
+Move 69: E-kanan
+ K    
+.AA...
+WDD.EE
+WPBQQC
+.PB..C
+.PR..T
+XXR..T
+
+Move 70: D-kanan
+ K    
+.AA...
+W.DDEE
+WPBQQC
+.PB..C
+.PR..T
+XXR..T
+
+Move 71: A-kanan
+ K    
+....AA
+W.DDEE
+WPBQQC
+.PB..C
+.PR..T
+XXR..T
+
+Move 72: P-atas
+ K    
+....AA
+W.DDEE
+W.BQQC
+..B..C
+..R..T
+XXR..T
+

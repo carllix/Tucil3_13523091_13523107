@@ -1,0 +1,69 @@
+Algorithm: A* Search
+Step count: 7
+Nodes visited: 13850
+Execution time: 923 ms
+
+Initial Board
+ AAC.DF
+ .BC.DF
+K.BCPPF
+ G..III
+ GHH...
+ LL.MM.
+
+Move 1: H-kanan
+ AAC.DF
+ .BC.DF
+K.BCPPF
+ G..III
+ G.HH..
+ LL.MM.
+
+Move 2: B-bawah
+ AAC.DF
+ ..C.DF
+K.BCPPF
+ GB.III
+ G.HH..
+ LL.MM.
+
+Move 3: H-kanan
+ AAC.DF
+ ..C.DF
+K.BCPPF
+ GB.III
+ G..HH.
+ LL.MM.
+
+Move 4: C-bawah
+ AA..DF
+ ....DF
+K.B.PPF
+ GBCIII
+ G.CHH.
+ LLCMM.
+
+Move 5: P-kiri
+ AA..DF
+ ....DF
+K.BPP.F
+ GBCIII
+ G.CHH.
+ LLCMM.
+
+Move 6: B-bawah
+ AA..DF
+ ....DF
+K..PP.F
+ GBCIII
+ GBCHH.
+ LLCMM.
+
+Move 7: P-kiri
+ AA..DF
+ ....DF
+K.....F
+ GBCIII
+ GBCHH.
+ LLCMM.
+

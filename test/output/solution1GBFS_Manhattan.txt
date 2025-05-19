@@ -1,6 +1,6 @@
 Algorithm: Greedy Best-First Search
-Step count: 21
-Nodes visited: 206
+Step count: 13
+Nodes visited: 51
 Execution time: 7 ms
 
 Initial Board
@@ -110,72 +110,8 @@ LL.MMF
 Move 13: P-kanan
 AA.CD. 
 G.BCD. 
-G.B.PPK
+G.B...K
 GIII.F 
 .HH..F 
 LL.MMF 
-
-Move 14: H-kanan
-AA.CD. 
-G.BCD. 
-G.B.PPK
-GIII.F 
-..HH.F 
-LL.MMF 
-
-Move 15: L-kanan
-AA.CD. 
-G.BCD. 
-G.B.PPK
-GIII.F 
-..HH.F 
-.LLMMF 
-
-Move 16: I-kanan
-AA.CD. 
-G.BCD. 
-G.B.PPK
-G.IIIF 
-..HH.F 
-.LLMMF 
-
-Move 17: B-atas
-AABCD. 
-G.BCD. 
-G...PPK
-G.IIIF 
-..HH.F 
-.LLMMF 
-
-Move 18: H-kanan
-AABCD. 
-G.BCD. 
-G...PPK
-G.IIIF 
-...HHF 
-.LLMMF 
-
-Move 19: L-kiri
-AABCD. 
-G.BCD. 
-G...PPK
-G.IIIF 
-...HHF 
-LL.MMF 
-
-Move 20: M-kiri
-AABCD. 
-G.BCD. 
-G...PPK
-G.IIIF 
-...HHF 
-LLMM.F 
-
-Move 21: P-kanan
-AABCD. 
-G.BCD. 
-G.....K
-G.IIIF 
-...HHF 
-LLMM.F 
 

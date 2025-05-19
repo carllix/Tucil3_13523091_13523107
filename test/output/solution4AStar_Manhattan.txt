@@ -1,0 +1,131 @@
+Algorithm: A* Search
+Step count: 13
+Nodes visited: 17778
+Execution time: 803 ms
+
+Initial Board
+ K    
+AAB..C
+DDBEEC
+WP..QQ
+WPR...
+.PR..T
+..XX.T
+
+Move 1: Q-kiri
+ K    
+AAB..C
+DDBEEC
+WP.QQ.
+WPR...
+.PR..T
+..XX.T
+
+Move 2: X-kanan
+ K    
+AAB..C
+DDBEEC
+WP.QQ.
+WPR...
+.PR..T
+...XXT
+
+Move 3: C-bawah
+ K    
+AAB...
+DDBEEC
+WP.QQC
+WPR...
+.PR..T
+...XXT
+
+Move 4: B-bawah
+ K    
+AA....
+DDBEEC
+WPBQQC
+WPR...
+.PR..T
+...XXT
+
+Move 5: R-bawah
+ K    
+AA....
+DDBEEC
+WPBQQC
+WP....
+.PR..T
+..RXXT
+
+Move 6: B-bawah
+ K    
+AA....
+DD.EEC
+WPBQQC
+WPB...
+.PR..T
+..RXXT
+
+Move 7: A-kanan
+ K    
+.AA...
+DD.EEC
+WPBQQC
+WPB...
+.PR..T
+..RXXT
+
+Move 8: D-kanan
+ K    
+.AA...
+.DDEEC
+WPBQQC
+WPB...
+.PR..T
+..RXXT
+
+Move 9: C-bawah
+ K    
+.AA...
+.DDEE.
+WPBQQC
+WPB..C
+.PR..T
+..RXXT
+
+Move 10: E-kanan
+ K    
+.AA...
+.DD.EE
+WPBQQC
+WPB..C
+.PR..T
+..RXXT
+
+Move 11: A-kanan
+ K    
+..AA..
+.DD.EE
+WPBQQC
+WPB..C
+.PR..T
+..RXXT
+
+Move 12: D-kanan
+ K    
+..AA..
+..DDEE
+WPBQQC
+WPB..C
+.PR..T
+..RXXT
+
+Move 13: P-atas
+ K    
+..AA..
+..DDEE
+W.BQQC
+W.B..C
+..R..T
+..RXXT
+

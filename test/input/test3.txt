@@ -1,9 +1,8 @@
 6 6
 10
-AAB..F
-..BCDF
-GPBCDF
-GP.III
-GHH...
-LL.MM.
- K
+ AAC.DF
+ .BC.DF
+K.BCPPF
+ G..III
+ GHH...
+ LL.MM.

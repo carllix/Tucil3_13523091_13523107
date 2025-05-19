@@ -1,0 +1,257 @@
+Algorithm: Beam Search
+Step count: 27
+Nodes visited: 142
+Execution time: 124 ms
+
+Initial Board
+AAB..F
+..BCDF
+GPBCDF
+GP.III
+GHH...
+LL.MM.
+ K    
+
+Move 1: H-kanan
+AAB..F
+..BCDF
+GPBCDF
+GP.III
+G...HH
+LL.MM.
+ K    
+
+Move 2: P-bawah
+AAB..F
+..BCDF
+G.BCDF
+GP.III
+GP..HH
+LL.MM.
+ K    
+
+Move 3: B-bawah
+AA...F
+..BCDF
+G.BCDF
+GPBIII
+GP..HH
+LL.MM.
+ K    
+
+Move 4: A-kanan
+.AA..F
+..BCDF
+G.BCDF
+GPBIII
+GP..HH
+LL.MM.
+ K    
+
+Move 5: B-bawah
+.AA..F
+...CDF
+G.BCDF
+GPBIII
+GPB.HH
+LL.MM.
+ K    
+
+Move 6: A-kanan
+..AA.F
+...CDF
+G.BCDF
+GPBIII
+GPB.HH
+LL.MM.
+ K    
+
+Move 7: B-bawah
+..AA.F
+...CDF
+G..CDF
+GPBIII
+GPB.HH
+LLBMM.
+ K    
+
+Move 8: A-kanan
+...AAF
+...CDF
+G..CDF
+GPBIII
+GPB.HH
+LLBMM.
+ K    
+
+Move 9: B-atas
+..BAAF
+..BCDF
+G.BCDF
+GP.III
+GP..HH
+LL.MM.
+ K    
+
+Move 10: G-atas
+..BAAF
+G.BCDF
+G.BCDF
+GP.III
+.P..HH
+LL.MM.
+ K    
+
+Move 11: B-bawah
+...AAF
+G.BCDF
+G.BCDF
+GPBIII
+.P..HH
+LL.MM.
+ K    
+
+Move 12: A-kiri
+..AA.F
+G.BCDF
+G.BCDF
+GPBIII
+.P..HH
+LL.MM.
+ K    
+
+Move 13: D-atas
+..AADF
+G.BCDF
+G.BC.F
+GPBIII
+.P..HH
+LL.MM.
+ K    
+
+Move 14: A-kiri
+.AA.DF
+G.BCDF
+G.BC.F
+GPBIII
+.P..HH
+LL.MM.
+ K    
+
+Move 15: B-bawah
+.AA.DF
+G..CDF
+G.BC.F
+GPBIII
+.PB.HH
+LL.MM.
+ K    
+
+Move 16: A-kiri
+AA..DF
+G..CDF
+G.BC.F
+GPBIII
+.PB.HH
+LL.MM.
+ K    
+
+Move 17: B-atas
+AAB.DF
+G.BCDF
+G.BC.F
+GP.III
+.P..HH
+LL.MM.
+ K    
+
+Move 18: C-atas
+AABCDF
+G.BCDF
+G.B..F
+GP.III
+.P..HH
+LL.MM.
+ K    
+
+Move 19: M-kanan
+AABCDF
+G.BCDF
+G.B..F
+GP.III
+.P..HH
+LL..MM
+ K    
+
+Move 20: H-kiri
+AABCDF
+G.BCDF
+G.B..F
+GP.III
+.PHH..
+LL..MM
+ K    
+
+Move 21: G-bawah
+AABCDF
+..BCDF
+G.B..F
+GP.III
+GPHH..
+LL..MM
+ K    
+
+Move 22: L-kanan
+AABCDF
+..BCDF
+G.B..F
+GP.III
+GPHH..
+.LL.MM
+ K    
+
+Move 23: H-kanan
+AABCDF
+..BCDF
+G.B..F
+GP.III
+GP.HH.
+.LL.MM
+ K    
+
+Move 24: D-bawah
+AABC.F
+..BCDF
+G.B.DF
+GP.III
+GP.HH.
+.LL.MM
+ K    
+
+Move 25: I-kiri
+AABC.F
+..BCDF
+G.B.DF
+GPIII.
+GP.HH.
+.LL.MM
+ K    
+
+Move 26: L-kanan
+AABC.F
+..BCDF
+G.B.DF
+GPIII.
+GP.HH.
+..LLMM
+ K    
+
+Move 27: P-bawah
+AABC.F
+..BCDF
+G.B.DF
+G.III.
+G..HH.
+..LLMM
+ K    
+

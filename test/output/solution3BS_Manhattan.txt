@@ -1,0 +1,213 @@
+Algorithm: Beam Search
+Step count: 25
+Nodes visited: 132
+Execution time: 57 ms
+
+Initial Board
+ AAC.DF
+ .BC.DF
+K.BCPPF
+ G..III
+ GHH...
+ LL.MM.
+
+Move 1: B-bawah
+ AAC.DF
+ ..C.DF
+K.BCPPF
+ GB.III
+ GHH...
+ LL.MM.
+
+Move 2: C-bawah
+ AA..DF
+ ..C.DF
+K.BCPPF
+ GBCIII
+ GHH...
+ LL.MM.
+
+Move 3: A-kanan
+ .AA.DF
+ ..C.DF
+K.BCPPF
+ GBCIII
+ GHH...
+ LL.MM.
+
+Move 4: B-atas
+ .AA.DF
+ .BC.DF
+K.BCPPF
+ G.CIII
+ GHH...
+ LL.MM.
+
+Move 5: A-kanan
+ ..AADF
+ .BC.DF
+K.BCPPF
+ G.CIII
+ GHH...
+ LL.MM.
+
+Move 6: B-atas
+ .BAADF
+ .BC.DF
+K..CPPF
+ G.CIII
+ GHH...
+ LL.MM.
+
+Move 7: G-atas
+ .BAADF
+ .BC.DF
+KG.CPPF
+ G.CIII
+ .HH...
+ LL.MM.
+
+Move 8: B-bawah
+ ..AADF
+ ..C.DF
+KGBCPPF
+ GBCIII
+ .HH...
+ LL.MM.
+
+Move 9: G-atas
+ ..AADF
+ G.C.DF
+KGBCPPF
+ .BCIII
+ .HH...
+ LL.MM.
+
+Move 10: H-kiri
+ ..AADF
+ G.C.DF
+KGBCPPF
+ .BCIII
+ HH....
+ LL.MM.
+
+Move 11: A-kiri
+ .AA.DF
+ G.C.DF
+KGBCPPF
+ .BCIII
+ HH....
+ LL.MM.
+
+Move 12: B-atas
+ .AA.DF
+ GBC.DF
+KGBCPPF
+ ..CIII
+ HH....
+ LL.MM.
+
+Move 13: A-kiri
+ AA..DF
+ GBC.DF
+KGBCPPF
+ ..CIII
+ HH....
+ LL.MM.
+
+Move 14: C-atas
+ AAC.DF
+ GBC.DF
+KGBCPPF
+ ...III
+ HH....
+ LL.MM.
+
+Move 15: B-bawah
+ AAC.DF
+ G.C.DF
+KGBCPPF
+ .B.III
+ HH....
+ LL.MM.
+
+Move 16: C-bawah
+ AA..DF
+ G...DF
+KGBCPPF
+ .BCIII
+ HHC...
+ LL.MM.
+
+Move 17: G-bawah
+ AA..DF
+ ....DF
+KGBCPPF
+ GBCIII
+ HHC...
+ LL.MM.
+
+Move 18: A-kanan
+ .AA.DF
+ ....DF
+KGBCPPF
+ GBCIII
+ HHC...
+ LL.MM.
+
+Move 19: B-atas
+ .AA.DF
+ .B..DF
+KGBCPPF
+ G.CIII
+ HHC...
+ LL.MM.
+
+Move 20: A-kanan
+ ..AADF
+ .B..DF
+KGBCPPF
+ G.CIII
+ HHC...
+ LL.MM.
+
+Move 21: B-atas
+ .BAADF
+ .B..DF
+KG.CPPF
+ G.CIII
+ HHC...
+ LL.MM.
+
+Move 22: C-bawah
+ .BAADF
+ .B..DF
+KG..PPF
+ G.CIII
+ HHC...
+ LLCMM.
+
+Move 23: P-kiri
+ .BAADF
+ .B..DF
+KGPP..F
+ G.CIII
+ HHC...
+ LLCMM.
+
+Move 24: G-atas
+ GBAADF
+ GB..DF
+K.PP..F
+ ..CIII
+ HHC...
+ LLCMM.
+
+Move 25: P-kiri
+ GBAADF
+ GB..DF
+K.....F
+ ..CIII
+ HHC...
+ LLCMM.
+

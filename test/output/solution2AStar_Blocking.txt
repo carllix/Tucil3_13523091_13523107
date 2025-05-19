@@ -1,0 +1,68 @@
+Algorithm: A* Search
+Step count: 6
+Nodes visited: 8632
+Execution time: 429 ms
+
+Initial Board
+AAB..F
+..BCDF
+GPBCDF
+GP.III
+GHH...
+LL.MM.
+ K    
+
+Move 1: L-kanan
+AAB..F
+..BCDF
+GPBCDF
+GP.III
+GHH...
+.LLMM.
+ K    
+
+Move 2: H-kanan
+AAB..F
+..BCDF
+GPBCDF
+GP.III
+G.HH..
+.LLMM.
+ K    
+
+Move 3: P-bawah
+AAB..F
+..BCDF
+G.BCDF
+GP.III
+GPHH..
+.LLMM.
+ K    
+
+Move 4: M-kanan
+AAB..F
+..BCDF
+G.BCDF
+GP.III
+GPHH..
+.LL.MM
+ K    
+
+Move 5: L-kanan
+AAB..F
+..BCDF
+G.BCDF
+GP.III
+GPHH..
+..LLMM
+ K    
+
+Move 6: P-bawah
+AAB..F
+..BCDF
+G.BCDF
+G..III
+G.HH..
+..LLMM
+ K    
+
