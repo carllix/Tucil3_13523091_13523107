@@ -1,11 +1,12 @@
 package algorithm;
 
-import heuristic.Heuristic;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Set;
+
+import heuristic.Heuristic;
 import model.Board;
 import model.State;
 import util.Constants;
@@ -13,14 +14,12 @@ import util.Constants;
 public class GBFS implements Algorithm {
 
     private Heuristic heuristic;
-    private final int maxIterations = 100;
 
     @Override
     public SolutionPath findSolution(Board initialBoard) {
         long startTime = System.currentTimeMillis();
         int nodesVisited = 0;
-        int iterations = 0;
-        
+
         State initialState = new State(initialBoard);
         initialState.setHeuristicValue(heuristic.calculate(initialBoard));
 
@@ -30,7 +29,7 @@ public class GBFS implements Algorithm {
 
         frontier.add(initialState);
 
-        while (!frontier.isEmpty() && iterations < maxIterations) {
+        while (!frontier.isEmpty()) {
             State currentState = frontier.poll();
             nodesVisited++;
 
