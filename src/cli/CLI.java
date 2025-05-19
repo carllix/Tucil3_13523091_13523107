@@ -1,12 +1,10 @@
-
 package cli;
 
 import util.Constants;
 import util.FileHandler;
 import algorithm.*;
-import model.Board;
-import model.Move;
-import model.State;
+import heuristic.*;
+import model.*;
 
 import java.io.File;
 import java.io.BufferedReader;
@@ -20,51 +18,61 @@ import static util.Constants.*;
 public class CLI {
 
     private static final BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+    private static final int DEFAULT_WIDTH = 60;
+    private static final String DEFAULT_OUTPUT_PATH = "test/output/solution.txt";
 
     public static void main(String[] args) {
         clearScreen();
         displayStartupAnimation();
+
+        
         Board board = promptBoardPath();
+
+        
         int algorithmChoice = promptAlgorithm();
+
+        
         int heuristicChoice = 0;
+        if (algorithmChoice != 1) {
+            heuristicChoice = promptHeuristic();
+        }
 
-        // if (algorithmChoice == 2 || algorithmChoice == 3 || algorithmChoice == 4) {
-        // heuristicChoice = promptHeuristic();
-        // // Custom algorithm class for placeholder implementation
-        // private static class CustomAlgorithm implements Algorithm {
-        // private final int heuristicChoice;
-
-        // public CustomAlgorithm(int heuristicChoice) {
-        // this.heuristicChoice = heuristicChoice;
-        // }
-
-        // @Override
-        // public SolutionPath findSolution(Board board) {
-        // // Placeholder implementation - in reality, you would implement your own
-        // // algorithm here
-        // return new UCS().findSolution(board);
-        // }
-
-        // @Override
-        // public String getName() {
-        // return "Custom Algorithm (with Heuristic " + heuristicChoice + ")";
-        // }
-        // }
-        // }
-
+        
         printStartMessage(board, algorithmChoice, heuristicChoice);
-        showLoadingAnimation("Solving puzzle");
+
+        
+        showProgressBar("Solving puzzle");
 
         try {
+            
+            Heuristic heuristic = null;
             Algorithm solver;
             switch (algorithmChoice) {
-                case 1 -> solver = new UCS();
-                // case 2 -> solver = new GBFS(heuristicChoice);
-                // case 3 -> solver = new AStar(heuristicChoice);
-                // case 4 -> solver = new CustomAlgorithm(heuristicChoice);
-                default -> throw new UnsupportedOperationException("Algoritma belum diimplementasikan");
+                case 1 -> {
+                    solver = new UCS();
+                }
+                case 2 -> {
+                    heuristic = (heuristicChoice == 1) ? new BlockingHeuristic() : new ManhattanDistance();
+                    GBFS gbfs = new GBFS();
+                    gbfs.setHeuristic(heuristic);
+                    solver = gbfs;
+                }
+                case 3 -> {
+                    heuristic = (heuristicChoice == 1) ? new BlockingHeuristic() : new ManhattanDistance();
+                    AStar aStar = new AStar();
+                    aStar.setHeuristic(heuristic);
+                    solver = aStar;
+                }
+                case 4 -> {
+                    heuristic = (heuristicChoice == 1) ? new BlockingHeuristic() : new ManhattanDistance();
+                    BeamSearch beam = new BeamSearch();
+                    beam.setHeuristic(heuristic);
+                    solver = beam;
+                }
+                default -> throw new UnsupportedOperationException("Algoritma tidak dikenali.");
             }
 
+            
             SolutionPath solution = solver.findSolution(board);
 
             if (solution.isSolutionFound()) {
@@ -73,34 +81,33 @@ public class CLI {
                 printSolutionToTerminal(board, solution.getPath(), solver.getName(), solution.getNodesVisited(),
                         solution.getExecutionTimeMs());
 
-                // Ask if user wants to save the solution
+                
                 boolean saveResult = promptSaveOption();
 
                 if (saveResult) {
                     String outputPath = promptOutputPath();
                     FileHandler.writeSolutionToFile(outputPath, board, solution.getPath(), solver.getName(),
                             solution.getNodesVisited(), solution.getExecutionTimeMs());
-                    System.out
-                            .println(BRIGHT_GREEN + BOLD + "✓ Solution successfully written to: " + outputPath + RESET);
+                    System.out.println(BRIGHT_GREEN + BOLD + "Solution successfully written to: " + outputPath + RESET);
                 } else {
                     System.out.println(BRIGHT_YELLOW + "Solution was not saved to file." + RESET);
                 }
             } else {
-                System.out.println("\n" + BG_RED + WHITE + BOLD + " No solution found! " + RESET);
+                System.out.println("\n" + BG_RED + WHITE + BOLD + " NO SOLUTION FOUND " + RESET);
                 System.out.println(RED + "The puzzle appears to be unsolvable with the selected algorithm." + RESET);
             }
         } catch (Exception e) {
             System.out.println("\n" + BG_RED + WHITE + BOLD + " ERROR " + RESET);
-            System.out.println(RED + "Terjadi kesalahan: " + e.getMessage() + RESET);
+            System.out.println(RED + "An error occurred: " + e.getMessage() + RESET);
             e.printStackTrace();
         }
 
-        // Exit message
+        
         System.out.println("\n" + BRIGHT_CYAN + "Press Enter to exit..." + RESET);
         try {
             reader.readLine();
         } catch (IOException e) {
-            // Ignore
+            
         }
     }
 
@@ -122,6 +129,8 @@ public class CLI {
                 for (String frame : frames) {
                     clearScreen();
                     String[] colors = { BRIGHT_RED, BRIGHT_YELLOW, BRIGHT_GREEN, BRIGHT_CYAN, BRIGHT_MAGENTA };
+
+                    
                     for (int j = 0; j < frame.length(); j++) {
                         String color = colors[j % colors.length];
                         System.out.print(color + frame.charAt(j) + RESET);
@@ -131,37 +140,45 @@ public class CLI {
                 }
             }
         } catch (InterruptedException e) {
-            // Ignore interruption
+            
         }
 
         printBanner();
     }
 
-    private static void showLoadingAnimation(String message) {
-        String[] spinner = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" };
-
+    private static void showProgressBar(String message) {
+        int width = 30;
         System.out.print("\n");
-        Thread loadingThread = new Thread(() -> {
-            int i = 0;
-            try {
-                while (!Thread.currentThread().isInterrupted()) {
-                    System.out.print("\r" + BRIGHT_CYAN + spinner[i % spinner.length] + " " + message + "..." + RESET);
-                    TimeUnit.MILLISECONDS.sleep(100);
-                    i++;
-                }
-            } catch (InterruptedException e) {
-                // Thread was interrupted, exit
-            }
-        });
 
-        loadingThread.start();
         try {
-            TimeUnit.SECONDS.sleep(2); // Simulate loading for at least 2 seconds
+            for (int i = 0; i <= width; i++) {
+                StringBuilder progressBar = new StringBuilder();
+                progressBar.append(BRIGHT_CYAN);
+                progressBar.append("\r [");
+
+                
+                for (int j = 0; j < i; j++) {
+                    progressBar.append(BRIGHT_GREEN + "█");
+                }
+
+                
+                for (int j = i; j < width; j++) {
+                    progressBar.append(BLACK + "█");
+                }
+
+                int percent = (i * 100) / width;
+                progressBar.append(BRIGHT_CYAN + "] " + BRIGHT_WHITE + percent + "% " + message + "..." + RESET);
+
+                System.out.print(progressBar);
+                TimeUnit.MILLISECONDS.sleep(50);
+            }
+
+            
+            TimeUnit.MILLISECONDS.sleep(500);
+            System.out.println("\r" + " ".repeat(message.length() + 50)); 
         } catch (InterruptedException e) {
-            // Ignore
+            
         }
-        loadingThread.interrupt();
-        System.out.println("\r" + " ".repeat(message.length() + 15)); // Clear the line
     }
 
     private static void printSolutionFoundAnimation() {
@@ -176,36 +193,38 @@ public class CLI {
                 }
                 TimeUnit.MILLISECONDS.sleep(100);
             }
+
+            
             TimeUnit.MILLISECONDS.sleep(500);
         } catch (InterruptedException e) {
-            // Ignore interruption
+            
         }
     }
 
     private static void printBanner() {
         String title = " RUSH HOUR SOLVER CLI ";
-        int width = 50;
+        int width = DEFAULT_WIDTH;
         int padding = (width - title.length()) / 2;
 
         StringBuilder banner = new StringBuilder();
         banner.append(BRIGHT_CYAN + BOLD);
         banner.append("\n");
 
-        // Top border with fancy characters
+        
         banner.append(" " + TOP_LEFT);
         for (int i = 0; i < width - 2; i++) {
             banner.append(HORIZONTAL);
         }
         banner.append(TOP_RIGHT + "\n");
 
-        // Middle part with title
+        
         banner.append(" " + VERTICAL);
         banner.append(" ".repeat(padding));
         banner.append(BRIGHT_YELLOW + title + BRIGHT_CYAN);
         banner.append(" ".repeat(width - 2 - padding - title.length()));
         banner.append(VERTICAL + "\n");
 
-        // Bottom border
+        
         banner.append(" " + BOTTOM_LEFT);
         for (int i = 0; i < width - 2; i++) {
             banner.append(HORIZONTAL);
@@ -231,11 +250,14 @@ public class CLI {
                     continue;
                 }
 
-                showLoadingAnimation("Loading board");
+                showProgressBar("Loading board");
                 board = FileHandler.readInputFile(path);
                 printSuccessMessage("Board loaded successfully!");
-            } catch (IOException e) {
-                printErrorMessage("Path tidak valid atau file tidak bisa dibaca: " + e.getMessage());
+
+                
+                TimeUnit.SECONDS.sleep(1);
+            } catch (IOException | InterruptedException e) {
+                printErrorMessage("Invalid path or file cannot be read: " + e.getMessage());
             }
         }
         return board;
@@ -250,7 +272,7 @@ public class CLI {
                     "Uniform Cost Search (UCS)",
                     "Greedy Best First Search",
                     "A* Search",
-                    "Bonus Algorithm (Custom Implementation)"
+                    "Beam Search"
             };
 
             printBoxedMenu("ALGORITHM SELECTION", options);
@@ -286,31 +308,30 @@ public class CLI {
 
     private static int promptHeuristic() {
         int choice = -1;
-        while (choice < 1 || choice > 3) {
+        while (choice < 1 || choice > 2) {
             clearScreen();
 
             String[] options = {
-                    "Blocking Vehicles Heuristic (Counts vehicles blocking the exit path)",
-                    "Manhattan Distance Heuristic (Distance to goal position)",
-                    "Combined Heuristic (Weighted combination of both)"
+                    "Blocking Vehicles Heuristic",
+                    "Manhattan Distance Heuristic",
             };
 
             printBoxedMenu("HEURISTIC SELECTION", options);
 
             try {
-                System.out.print(BRIGHT_YELLOW + "Enter your choice (1-3): " + RESET);
+                System.out.print(BRIGHT_YELLOW + "Enter your choice (1-2): " + RESET);
                 String input = reader.readLine();
 
                 if (input.trim().isEmpty()) {
-                    printErrorMessage("Input cannot be empty. Please enter a number between 1 and 3.");
+                    printErrorMessage("Input cannot be empty. Please enter a number between 1 and 2.");
                     TimeUnit.SECONDS.sleep(1);
                     continue;
                 }
 
                 try {
                     choice = Integer.parseInt(input);
-                    if (choice < 1 || choice > 3) {
-                        printErrorMessage("Invalid choice. Please enter a number between 1 and 3.");
+                    if (choice < 1 || choice > 2) {
+                        printErrorMessage("Invalid choice. Please enter a number between 1 and 2.");
                         TimeUnit.SECONDS.sleep(1);
                     }
                 } catch (NumberFormatException e) {
@@ -331,31 +352,31 @@ public class CLI {
         int width = Math.max(title.length() + 4, message.length() + 4);
 
         System.out.println(BRIGHT_CYAN);
-        // Top border
+        
         System.out.print(" " + TOP_LEFT);
         for (int i = 0; i < width; i++) {
             System.out.print(HORIZONTAL);
         }
         System.out.println(TOP_RIGHT);
 
-        // Title
+        
         System.out.print(" " + VERTICAL + " " + BRIGHT_YELLOW + BOLD + title + RESET + BRIGHT_CYAN);
         System.out.print(" ".repeat(width - title.length() - 1));
         System.out.println(VERTICAL);
 
-        // Separator
+        
         System.out.print(" " + VERTICAL);
         for (int i = 0; i < width; i++) {
             System.out.print("-");
         }
         System.out.println(VERTICAL);
 
-        // Message
+        
         System.out.print(" " + VERTICAL + " " + BRIGHT_WHITE + message + RESET + BRIGHT_CYAN);
         System.out.print(" ".repeat(width - message.length() - 1));
         System.out.println(VERTICAL);
 
-        // Bottom border
+        
         System.out.print(" " + BOTTOM_LEFT);
         for (int i = 0; i < width; i++) {
             System.out.print(HORIZONTAL);
@@ -367,37 +388,37 @@ public class CLI {
     private static void printBoxedMenu(String title, String[] options) {
         int width = Math.max(title.length() + 4, 60);
         for (String option : options) {
-            width = Math.max(width, option.length() + 8); // Account for option number and padding
+            width = Math.max(width, option.length() + 8); 
         }
 
         System.out.println(BRIGHT_CYAN);
-        // Top border
+        
         System.out.print(" " + TOP_LEFT);
         for (int i = 0; i < width; i++) {
             System.out.print(HORIZONTAL);
         }
         System.out.println(TOP_RIGHT);
 
-        // Title
+        
         System.out.print(" " + VERTICAL + " " + BRIGHT_YELLOW + BOLD + title + RESET + BRIGHT_CYAN);
         System.out.print(" ".repeat(width - title.length() - 1));
         System.out.println(VERTICAL);
 
-        // Separator
+        
         System.out.print(" " + VERTICAL);
         for (int i = 0; i < width; i++) {
             System.out.print("-");
         }
         System.out.println(VERTICAL);
 
-        // Options
+        
         for (int i = 0; i < options.length; i++) {
             System.out.print(" " + VERTICAL + " " + BRIGHT_WHITE + (i + 1) + ". " + options[i] + RESET + BRIGHT_CYAN);
-            System.out.print(" ".repeat(width - options[i].length() - 4)); // 4 = "X. ".length()
+            System.out.print(" ".repeat(width - options[i].length() - 4)); 
             System.out.println(VERTICAL);
         }
 
-        // Bottom border
+        
         System.out.print(" " + BOTTOM_LEFT);
         for (int i = 0; i < width; i++) {
             System.out.print(HORIZONTAL);
@@ -416,17 +437,17 @@ public class CLI {
 
     private static void printStartMessage(Board board, int algorithm, int heuristic) {
         clearScreen();
-        int width = 60;
+        int width = DEFAULT_WIDTH;
 
         System.out.println(BRIGHT_CYAN + BOLD);
-        // Top border
+        
         System.out.print(" " + TOP_LEFT);
         for (int i = 0; i < width; i++) {
             System.out.print(HORIZONTAL);
         }
         System.out.println(TOP_RIGHT);
 
-        // Title
+        
         String title = " CONFIGURATION SUMMARY ";
         int padding = (width - title.length()) / 2;
         System.out.print(" " + VERTICAL);
@@ -435,14 +456,14 @@ public class CLI {
         System.out.print(" ".repeat(width - padding - title.length()));
         System.out.println(VERTICAL);
 
-        // Separator
+        
         System.out.print(" " + VERTICAL);
         for (int i = 0; i < width; i++) {
             System.out.print("-");
         }
         System.out.println(VERTICAL);
 
-        // Board information
+        
         System.out.print(" " + VERTICAL + " " + BRIGHT_WHITE + "Board size: " + board.getRows() + "x"
                 + board.getCols() + RESET + BRIGHT_CYAN + BOLD);
         System.out.print(" ".repeat(
@@ -454,7 +475,7 @@ public class CLI {
         System.out.print(" ".repeat(width - 20 - String.valueOf(board.getPieces().size()).length()));
         System.out.println(VERTICAL);
 
-        // Algorithm & Heuristic information
+        
         System.out.print(" " + VERTICAL + " " + BRIGHT_WHITE + "Selected algorithm: "
                 + Constants.getAlgorithmName(algorithm) + RESET + BRIGHT_CYAN + BOLD);
         System.out.print(" ".repeat(width - 20 - Constants.getAlgorithmName(algorithm).length()));
@@ -467,7 +488,7 @@ public class CLI {
             System.out.println(VERTICAL);
         }
 
-        // Bottom border
+        
         System.out.print(" " + BOTTOM_LEFT);
         for (int i = 0; i < width; i++) {
             System.out.print(HORIZONTAL);
@@ -475,7 +496,7 @@ public class CLI {
         System.out.println(BOTTOM_RIGHT);
         System.out.println(RESET);
 
-        // Board visualization
+        
         System.out.println(BRIGHT_YELLOW + BOLD + "\nInitial Board State:" + RESET);
         System.out.println(board.toStringWithColor());
     }
@@ -509,10 +530,9 @@ public class CLI {
     }
 
     private static String promptOutputPath() {
-        String defaultPath = "test/output/solution.txt";
         while (true) {
             printBoxedPrompt("SAVE SOLUTION", "Enter the path where you want to save the solution file:");
-            System.out.println(BRIGHT_CYAN + "Default path: " + BRIGHT_WHITE + defaultPath + RESET);
+            System.out.println(BRIGHT_CYAN + "Default path: " + BRIGHT_WHITE + DEFAULT_OUTPUT_PATH + RESET);
             System.out.println(BRIGHT_CYAN + "Press Enter to use default path or type a new path." + RESET);
 
             try {
@@ -520,10 +540,10 @@ public class CLI {
                 String input = reader.readLine();
 
                 if (input.trim().isEmpty()) {
-                    return defaultPath;
+                    return DEFAULT_OUTPUT_PATH;
                 }
 
-                // Check if directory exists and create if needed
+                
                 File file = new File(input);
                 File parentDir = file.getParentFile();
 
@@ -538,18 +558,18 @@ public class CLI {
                             return input;
                         } else {
                             printErrorMessage("Failed to create directory. Using default path instead.");
-                            return defaultPath;
+                            return DEFAULT_OUTPUT_PATH;
                         }
                     } else {
                         printErrorMessage("Directory not created. Using default path instead.");
-                        return defaultPath;
+                        return DEFAULT_OUTPUT_PATH;
                     }
                 }
 
                 return input;
             } catch (IOException e) {
                 printErrorMessage("Error reading your input: " + e.getMessage());
-                return defaultPath;
+                return DEFAULT_OUTPUT_PATH;
             }
         }
     }
@@ -561,18 +581,17 @@ public class CLI {
             int totalNodesVisited,
             long executionTime) {
 
-        int width = 60;
+        int width = DEFAULT_WIDTH;
 
         System.out.println(BRIGHT_CYAN + BOLD);
-        // Top border
+        
         System.out.print(" " + TOP_LEFT);
         for (int i = 0; i < width; i++) {
             System.out.print(HORIZONTAL);
         }
         System.out.println(TOP_RIGHT);
 
-        // Title
-        String title = " SOLUTION FOUND ";
+        String title = "SOLUTION FOUND";
         int padding = (width - title.length()) / 2;
         System.out.print(" " + VERTICAL);
         System.out.print(" ".repeat(padding));
@@ -580,14 +599,14 @@ public class CLI {
         System.out.print(" ".repeat(width - padding - title.length()));
         System.out.println(VERTICAL);
 
-        // Separator
+        
         System.out.print(" " + VERTICAL);
         for (int i = 0; i < width; i++) {
             System.out.print("-");
         }
         System.out.println(VERTICAL);
 
-        // Solution information
+        
         System.out.print(" " + VERTICAL + " " + BRIGHT_WHITE + "Algorithm: " + algorithm + RESET + BRIGHT_CYAN + BOLD);
         System.out.print(" ".repeat(width - 12 - algorithm.length()));
         System.out.println(VERTICAL);
@@ -599,15 +618,15 @@ public class CLI {
 
         System.out.print(" " + VERTICAL + " " + BRIGHT_WHITE + "Nodes visited: " + totalNodesVisited + RESET
                 + BRIGHT_CYAN + BOLD);
-        System.out.print(" ".repeat(width - 15 - String.valueOf(totalNodesVisited).length()));
+        System.out.print(" ".repeat(width - 16 - String.valueOf(totalNodesVisited).length()));
         System.out.println(VERTICAL);
 
         System.out.print(" " + VERTICAL + " " + BRIGHT_WHITE + "Execution time: " + executionTime + " ms" + RESET
                 + BRIGHT_CYAN + BOLD);
-        System.out.print(" ".repeat(width - 18 - String.valueOf(executionTime).length()));
+        System.out.print(" ".repeat(width - 20- String.valueOf(executionTime).length()));
         System.out.println(VERTICAL);
 
-        // Bottom border
+        
         System.out.print(" " + BOTTOM_LEFT);
         for (int i = 0; i < width; i++) {
             System.out.print(HORIZONTAL);
@@ -618,7 +637,7 @@ public class CLI {
         System.out.println(BRIGHT_YELLOW + BOLD + "\nInitial Board" + RESET);
         System.out.println(initialBoard.toStringWithColor());
 
-        // Solution moves
+        
         if (solutionPath.size() > 1) {
             System.out.println(BRIGHT_CYAN + BOLD + "\nSolution Steps:" + RESET);
 
@@ -639,7 +658,7 @@ public class CLI {
                     Thread.currentThread().interrupt();
                 }
 
-                // Print board with movement highlighted
+                
                 System.out.println(currentBoard.toStringWithColor(move, previousBoard));
 
                 previousBoard = currentBoard;

@@ -61,7 +61,6 @@ public class Constants {
     // Heuristic Labels
     public static final String BLOCKING_HEURISTIC = "Blocking Heuristic";
     public static final String MANHATTAN_HEURISTIC = "Manhattan Distance";
-    // public static final String CUSTOM_HEURISTIC = "Custom";
 
     // Helper functions
     public static String getAlgorithmName(int id) {

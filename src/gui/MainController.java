@@ -168,7 +168,6 @@ public class MainController {
         double availableWidth = boardContainer.getWidth() - 2 * BOARD_MARGIN;
         double availableHeight = boardContainer.getHeight() - 2 * BOARD_MARGIN;
 
-        // Jika belum ditampilkan, panggil setelah scene ditampilkan
         if (availableWidth <= 0 || availableHeight <= 0) {
             Platform.runLater(this::drawInitialBoard);
             return;
@@ -193,7 +192,6 @@ public class MainController {
             boardPane.getChildren().add(vLine);
         }
 
-        // Gambar exit
         Position exitPos = initialBoard.getExitPosition();
         double exitX = BOARD_MARGIN + exitPos.getCol() * CELL_SIZE;
         double exitY = BOARD_MARGIN + exitPos.getRow() * CELL_SIZE;
@@ -281,7 +279,6 @@ public class MainController {
             Algorithm algorithm = createSelectedAlgorithm();
             solution = algorithm.findSolution(initialBoard);
 
-            // Update UI on JavaFX thread
             Platform.runLater(() -> {
                 solveButton.setDisable(false);
 
@@ -646,5 +643,4 @@ public class MainController {
         dialogStage.setResizable(false);
         dialogStage.showAndWait();
     }    
-
 }

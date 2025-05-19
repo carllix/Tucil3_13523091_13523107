@@ -20,6 +20,8 @@ public class RushHourApp extends Application {
             Scene loadingScene = new Scene(loadingRoot);
 
             primaryStage.setTitle("Rush Hour Solver - Loading...");
+            primaryStage.getIcons()
+                    .add(new javafx.scene.image.Image(getClass().getResourceAsStream("/gui/assets/logo.png")));
             primaryStage.setScene(loadingScene);
 
             primaryStage.setWidth(800);

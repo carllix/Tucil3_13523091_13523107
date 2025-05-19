@@ -125,12 +125,11 @@ public class Board {
         if (piece == null)
             return false;
 
-        // Hapus posisi lama dari board
         for (Position pos : piece.getAllPositions()) {
             int row = pos.getRow();
             int col = pos.getCol();
             if (row >= 0 && row < boardArray.length && col >= 0 && col < boardArray[0].length) {
-                boardArray[row][col] = '.'; // hanya tandain yang ada di dalam board
+                boardArray[row][col] = '.';
             }
         }
 
@@ -166,11 +165,9 @@ public class Board {
         Position anchor = primary.getAnchor();
 
         if (exitPosition.getRow() == -1 || exitPosition.getRow() == rows) {
-            // Exit di atas atau bawah
             return !primary.isHorizontal() && exitPosition.getCol() >= anchor.getCol()
                     && exitPosition.getCol() < anchor.getCol() + 1;
         } else if (exitPosition.getCol() == -1 || exitPosition.getCol() == cols) {
-            // Exit di kiri atau kanan
             return primary.isHorizontal() && exitPosition.getRow() >= anchor.getRow()
                     && exitPosition.getRow() < anchor.getRow() + 1;
         }
@@ -194,24 +191,20 @@ public class Board {
         if (primary.isHorizontal()) {
             int endCol = anchor.getCol() + size - 1;
 
-            // Kanan
             if (exitPosition.getCol() == cols) {
                 return anchor.getCol() >= cols;
             }
 
-            // Kiri
             if (exitPosition.getCol() == -1) {
                 return endCol < 0;
             }
         } else {
             int endRow = anchor.getRow() + size - 1;
 
-            // Bawah
             if (exitPosition.getRow() == rows) {
                 return anchor.getRow() >= rows;
             }
 
-            // Atas
             if (exitPosition.getRow() == -1) {
                 return endRow < 0;
             }

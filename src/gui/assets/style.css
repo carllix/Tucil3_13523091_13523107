@@ -44,8 +44,8 @@
 #stepBackButton,
 #stepForwardButton,
 #resetButton {
-    -fx-background-color: #FFFFFF;
-    -fx-text-fill: #4A4A4A;
+    -fx-background-color: #8ACCD5;
+    -fx-text-fill: white;
     -fx-pref-width: 60px;
     -fx-padding: 5px 10px;
     -fx-font-size: 12px;
@@ -55,7 +55,7 @@
 #stepBackButton:hover,
 #stepForwardButton:hover,
 #resetButton:hover {
-    -fx-background-color: #EAEAEA;
+    -fx-background-color: #75B8CC;
 }
 
 .combo-box {

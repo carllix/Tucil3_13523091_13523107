@@ -6,24 +6,9 @@
   "configurations": [
     {
       "type": "java",
-      "name": "RushHourApp",
-      "request": "launch",
-      "mainClass": "gui.RushHourApp",
-      "projectName": "Tucil3_13523091_13523107_537c4583",
-      "vmArgs": "--module-path \"C:/Program Files/Java/javafx-sdk-24.0.1/lib\" --add-modules javafx.controls,javafx.fxml"
-    },
-    {
-      "type": "java",
       "name": "Current File",
       "request": "launch",
       "mainClass": "${file}"
-    },
-    {
-      "type": "java",
-      "name": "Main",
-      "request": "launch",
-      "mainClass": "Main",
-      "projectName": "Tucil3_13523091_13523107_537c4583"
     },
     {
       "type": "java",
@@ -31,6 +16,14 @@
       "request": "launch",
       "mainClass": "cli.CLI",
       "projectName": "Tucil3_13523091_13523107_537c4583"
+    },
+    {
+      "type": "java",
+      "name": "RushHourApp",
+      "request": "launch",
+      "mainClass": "gui.RushHourApp",
+      "projectName": "Tucil3_13523091_13523107_537c4583",
+      "vmArgs": "--module-path \"C:/Program Files/Java/javafx-sdk-24.0.1/lib\" --add-modules javafx.controls,javafx.fxml"
     }
   ]
 }
