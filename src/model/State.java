@@ -64,7 +64,7 @@ public class State implements Comparable<State> {
                         newBoard,
                         this,
                         move,
-                        this.cost + 1,
+                        this.cost + move.getDistance(),
                         heuristicValue);
 
                 childStates.add(childState);
