@@ -10,7 +10,7 @@ public class BeamSearch implements Algorithm {
 
     private Heuristic heuristic;
     private final int beamWidth = 5;
-    private final int maxIterations = 1000;
+    private final int maxIterations = 100;
 
     @Override
     public SolutionPath findSolution(Board initialBoard) {
