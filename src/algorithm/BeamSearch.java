@@ -1,8 +1,7 @@
 package algorithm;
 
-import java.util.*;
-
 import heuristic.Heuristic;
+import java.util.*;
 import model.Board;
 import model.State;
 import util.Constants;
@@ -11,7 +10,7 @@ public class BeamSearch implements Algorithm {
 
     private Heuristic heuristic;
     private final int beamWidth = 5;
-    private final int maxIterations = 10000;
+    private final int maxIterations = 1000;
 
     @Override
     public SolutionPath findSolution(Board initialBoard) {
