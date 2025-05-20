@@ -282,18 +282,28 @@ public class MainController {
             Platform.runLater(() -> {
                 solveButton.setDisable(false);
 
-                if (solution != null && solution.isSolutionFound()) {
-                    statePath = solution.getPath();
-                    populateMoveHistory();
+                if (solution != null) {
+                    nodesVisitedLabel.setText(String.valueOf(solution.getNodesVisited()));
+                    stepsLabel.setText(String.valueOf(solution.getStepCount()));
+                    executionTimeLabel.setText(solution.getExecutionTimeMs() + " ms");
 
-                    playButton.setDisable(false);
-                    saveSolutionButton.setDisable(false);
-                    stepBackButton.setDisable(false);
-                    stepForwardButton.setDisable(false);
-                    resetButton.setDisable(false);
-                    handlePlay();
+                    if (solution.isSolutionFound()) {
+                        statePath = solution.getPath();
+                        populateMoveHistory();
+
+                        playButton.setDisable(false);
+                        saveSolutionButton.setDisable(false);
+                        stepBackButton.setDisable(false);
+                        stepForwardButton.setDisable(false);
+                        resetButton.setDisable(false);
+                        handlePlay();
+                    } else {
+                        statusLabel.setText("No Solution Found");
+                        showFailureDialog(solution.getNodesVisited(), solution.getExecutionTimeMs());
+                    }
                 } else {
-                    statusLabel.setText("No Solution Found");
+                    statusLabel.setText("No Solution (null)");
+                    showAlert("Error", "Solution is null.");
                 }
             });
         }).start();
@@ -372,7 +382,7 @@ public class MainController {
 
         animation = new SequentialTransition();
         double speedFactor = speedSlider.getValue() / 5.0;
-        Duration stepDuration = Duration.seconds(0.5 / speedFactor); 
+        Duration stepDuration = Duration.seconds(0.5 / speedFactor);
 
         for (int i = currentStateIndex + 1; i < statePath.size(); i++) {
             final int index = i;
@@ -642,5 +652,33 @@ public class MainController {
         dialogStage.setScene(scene);
         dialogStage.setResizable(false);
         dialogStage.showAndWait();
-    }    
+    }
+
+    private void showFailureDialog(int nodesVisited, long timeMs) {
+        Stage dialogStage = new Stage();
+        dialogStage.initModality(Modality.APPLICATION_MODAL);
+        dialogStage.setTitle("No Solution Found");
+
+        Label icon = new Label("❌");
+        icon.setStyle("-fx-font-size: 36px;");
+
+        Label title = new Label("No Solution Found");
+        title.setStyle("-fx-font-size: 18px; -fx-font-weight: bold;");
+
+        Label body = new Label("Explored " + nodesVisited + " nodes\nExecution Time: " + timeMs + " ms.");
+        body.setStyle("-fx-font-size: 14px; -fx-text-alignment: center;");
+
+        Button okButton = new Button("OK");
+        okButton.setDefaultButton(true);
+        okButton.setOnAction(e -> dialogStage.close());
+
+        VBox content = new VBox(15, icon, title, body, okButton);
+        content.setAlignment(Pos.CENTER);
+        content.setPadding(new Insets(20));
+
+        Scene scene = new Scene(content);
+        dialogStage.setScene(scene);
+        dialogStage.setResizable(false);
+        dialogStage.showAndWait();
+    }
 }
