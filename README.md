@@ -76,9 +76,15 @@ The application includes two modes of operation:
 - **doc** : contains the assignment report and program documentation.
 
 ## Requirements & Installation
-Before running the program, make sure the following are installed on your system:
-- Java Development Kit (JDK) 17 or above
-- JavaFX SDK 17 or above (only required for running the .jar GUI version)
+Before running the program, follow these steps:
+1. Clone this repository
+    ```bash
+    git clone https://github.com/carllix/Tucil3_13523091_13523107.git
+    cd Tucil3_13523091_13523107
+    ```
+2. Make sure the following are installed on your system:
+    - Java Development Kit (JDK) 17 or above
+    - JavaFX SDK 17 or above (only required for running the .jar GUI version)
 
 > 💡 JavaFX SDK can be downloaded from: https://gluonhq.com/products/javafx/
 
@@ -87,25 +93,25 @@ Before running the program, make sure the following are installed on your system
 ## How to Use
 There are three ways to run the program: CLI, GUI via `.jar`, and GUI via self-contained package.
 - **Run via Command Line Interface (CLI)**
-```bash
-java -jar build/RushHourSolverCLI.jar
-```
-This will launch a text-based interface where you can select a puzzle file, choose an algorithm, and view the solution and statistics directly in the terminal.
+  ```bash
+  java -jar build/RushHourSolverCLI.jar
+  ```
+  This will launch a text-based interface where you can select a puzzle file, choose an algorithm, and view the solution and statistics directly in the terminal.
 
 - **Run via Graphical User Interface (GUI - JAR)**
-```bash
-java --module-path /path/to/javafx-sdk/lib --add-modules javafx.controls,javafx.fxml -jar build/RushHourSolverGUI.jar
-```
-Replace `/path/to/javafx-sdk/lib` with the actual path to your JavaFX SDK’s `lib` folder.
-This will open the GUI where you can interactively load puzzles, choose algorithms and heuristics, and watch the animated solution.
+  ```bash
+  java --module-path /path/to/javafx-sdk/lib --add-modules javafx.controls,javafx.fxml -jar build/RushHourSolver.jar
+  ```
+  Replace `/path/to/javafx-sdk/lib` with the actual path to your JavaFX SDK’s `lib` folder.
+  This will open the GUI where you can interactively load puzzles, choose algorithms and heuristics, and watch the animated solution.
 
 - **Run via GUI Self-Contained Executable Package**
 
-In the root of this repository, you will find a  `RushHourSolver.zip` file generated using jpackage.
-1. Extract the `.zip` file
-2. Navigate to the extracted folder
-3. Double-click the executable file (`RushHourSolver.exe`)
-> This package is self-contained, meaning it includes its own Java runtime and JavaFX dependencies. No additional installation is required.
+  In the root of this repository, you will find a  `RushHourSolver.zip` file generated using jpackage.
+  1. Extract the `.zip` file
+  2. Navigate to the extracted folder
+  3. Double-click the executable file (`RushHourSolver.exe`)
+  > This package is self-contained, meaning it includes its own Java runtime and JavaFX dependencies. No additional installation is required.
 
 ## Author
 | **NIM**  | **Nama Anggota**               | **Github** |
